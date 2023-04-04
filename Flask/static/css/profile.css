@@ -1,44 +1,64 @@
-body {
-    background: rgb(99, 39, 120)
-}
-
 .form-control:focus {
     box-shadow: none;
     border-color: #BA68C8
 }
 
-.profile-button {
-    background: rgb(99, 39, 120);
-    box-shadow: none;
-    border: none
-}
-
-.profile-button:hover {
-    background: #682773
-}
-
-.profile-button:focus {
-    background: #682773;
-    box-shadow: none
-}
-
-.profile-button:active {
-    background: #682773;
-    box-shadow: none
-}
-
-.back:hover {
-    color: #682773;
-    cursor: pointer
-}
 
 .labels {
     font-size: 11px
 }
 
-.add-experience:hover {
-    background: #BA68C8;
-    color: #fff;
+.profile-container{
+    position:relative;
+    left:2rem;
+    right:0;
+    width:60vw;
+    font-family: var(--font-sansation);
+}
+.whitebg{
+    background-color: white;
+}
+.bookmark {
     cursor: pointer;
-    border: solid 1px #BA68C8
+    border: 0;
+    padding: 5px;
+    position: relative;
+    border-radius: 40px;
+    width: 13.88rem;
+    height: 3.69rem;
+    vertical-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--font-roboto), sans-serif;
+    color: white;
+}
+.about-yourself{
+    width:100%;
+    background-color:#1a1a1c;
+    overflow:cover;
+    overflow-y: hidden;
+    height:8rem;
+    color:white;
+    font-family: var(--font-sansation);
+    padding:1rem;
+    border-radius: 2rem;;
+}
+h2{
+    font-family: var(--font-sansation);
+}
+.title-of-the {
+    margin: 0;
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: inherit;
+}
+
+.review-container {
+    margin: 5px;
+    border: 2px solid;
+    background-color: #1a1a1c;
+    color:white;
+    border-radius: 25px;
+    padding: 20px;
 }

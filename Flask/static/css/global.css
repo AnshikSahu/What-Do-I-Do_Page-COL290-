@@ -31,6 +31,7 @@ body {
   --color-crimson: #c3073f;
   --color-darkslategray: rgba(74, 74, 78, 0.5);
   --color-gainsboro-100: #d9d9d9;
+  --color-gainsboro-200: rgba(217, 217, 217, 0.75);
 
   /* border radiuses */
   --br-mini: 15px;

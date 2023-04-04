@@ -1,47 +1,106 @@
 {% extends 'base.html' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{url_for('static','css/profile.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}">
 {% endblock %}
 {% block content %}
-<div class="container rounded bg-white mt-5 mb-5">
+<div class="profile-contaianer">
+
+
     <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3 border-right whitebg">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                    width="150px"
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+                    class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span>
+                </span></div>
         </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
+        <div class="col-md-3 border-right whitebg">
+            <div class="p-3 py-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
+                    <h2 class="text-right">Profile Settings</h2>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
+                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
+                            placeholder="first name" value=""></div>
+                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control"
+                            value="" placeholder="surname"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                    <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control"
+                            placeholder="enter email id" value=""></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
+                    <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control"
+                            placeholder="username" value=""></div>
+                    <div class="col-md-6"><label class="labels">Password</label><input type="password"
+                            class="form-control" value="" placeholder="password"></div>
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save
+                        Profile</button></div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3 whitebg">
             <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+                <button class="btn btn-dark mt-5 bookmark">
+                    BOOKMARKS
+                    <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
+                </button>
+                <button class="btn btn-dark mt-5 bookmark">FRIENDS</button>
+                <button class="btn btn-dark mt-5 bookmark">INTERACTIONS</button>
+
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-9 whitebg">
+            <h2 class="user-reviews">
+                About Yourself
+            </h2>
+            <textarea class="about-yourself">
+Thriller, suspense, and horror movie aficionado. Always on the lookout for the next spine-tingling, nail-biting, edge-of-your-seat experience. 
+Let's talk about our favorite movies!
+            </textarea>
+            <h2 class="user-reviews">
+                Posts
+            </h2>
+            <div class="review-container">
+                <div class="row">
+                    <div class="col-3">
+                        <h3 class="title-of-the">Title of the Review</h3>
+                    </div>
+                    <div class="col-3">
+                        <span class="username">Aditya.xyz |</span>
+                        <span class="date" id="date">Mar 13, 2023</span>
+                    </div>
+                    <div class="col-3">
+                        <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like1.svg')}}" />
+                        <span class="div1" id="likenum">· 500</span>
+                    </div>
+                    <div class="col-3">
+                        <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" />
+                        <span class="div1" id="dislikenum">· 500</span>
+                    </div>
+                </div>
+                <br>
+                <div class="review-content">
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
+                    erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
+                    gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
+                    Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
+                    tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
+                    lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
+                    imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
+                    arcu ac tortor.
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </div>
 </div>

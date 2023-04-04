@@ -1,0 +1,38 @@
+{% extends 'base2.html' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/signup.css')}}">
+{% endblock %}
+{% block content %}
+    <div class="sign-up">
+      <div class="the-parent">
+        <div class="the">the</div>
+        <div class="page">page.</div>
+        <b class="what-do-i-container"
+          ><span>W</span><span class="hat">hat </span><span>D</span
+          ><span class="hat">o </span><span>I D</span
+          ><span class="hat">o</span></b
+        >
+      </div>
+      <div class="sign-up-child" id="SignUp"></div>
+      <input
+        class="sign-up-item"
+        type="text"
+        placeholder="Full Name"
+        id="Name"
+      /><input class="sign-up-inner" type="email" placeholder="Email" /><input
+        class="rectangle-input"
+        type="text"
+        placeholder="Username"
+        id="UserName"
+      /><input class="sign-up-child1" type="password" placeholder="Password" />
+      <button class="sign-up-wrapper">
+        <div class="sign-up1">Sign Up</div>
+      </button>
+      <div class="already-have-an-container">
+        <span>Already have an account?</span><b class="b"> </b>
+      </div>
+      <button class="login" id="login">Login !!</button
+      >
+    </div>
+
+{% endblock %}

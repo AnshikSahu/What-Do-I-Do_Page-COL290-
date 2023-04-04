@@ -9,6 +9,7 @@ movies = [
 @app.route('/')
 def index():
     return render_template('index.html')
+    
 @app.route('/login')
 def login():
     return render_template('login.html')
@@ -16,6 +17,18 @@ def login():
 @app.route('/movie')
 def movie():
     return render_template('movie_page.html')
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/loginotp')
+def loginotp():
+    return render_template('loginotp.html')
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
 
 if __name__=="__main__":
     app.run(debug=True)

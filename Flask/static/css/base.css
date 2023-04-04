@@ -181,9 +181,8 @@ nav{
 .base {
   background-image: linear-gradient(#1a1a1c,black);
   background-size: cover;
-
   width: 100%;
-
+  height:200vh;
   background-attachment: fixed;
 }
 .navbar-dark .nav-item .nav-link {
