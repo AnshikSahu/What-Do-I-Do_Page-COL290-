@@ -3,6 +3,53 @@
   opacity: 100; /* Firefox */
   font-size: 17px;
 }
+/* TITLE */
+.what-do-i-container {
+  position: absolute;
+  top: 93px;
+  left: 0;
+  font-size: 45px;
+  display: inline-block;
+  font-family: var(--font-ceuretas);
+  width: 78px;
+  height: 304px;
+  text-shadow: 2px 2px 4px #950740;
+}
+.title {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  width: 78px;
+  height: 490px;
+  font-size: var(--font-size-18xl);
+  font-family: var(--font-bright-sunshine-demo);
+  z-index: 10;
+}
+.page,
+.the {
+  position: absolute;
+  left: 0;
+  color:white;
+}
+.the {
+  top: 0;
+}
+.page {
+  top: 600px;
+}
+.w {
+  color: var(--color-crimson);
+}
+.i,
+.what {
+  margin: 0;
+}
+.i {
+  color: var(--color-crimson);
+}
+.o {
+  color: var(--color-white);
+}
 /* Logo */
 /* .image-2 {
   cursor: pointer;
@@ -23,12 +70,12 @@
   position: relative;
   left: 5px;
 }
-.search-form{
+/* .search-form{
   position:relative;
   float:right;
-}
-.base-child {
-  /* background: url("./public/group.svg") right no-repeat; */
+} */
+/* .base-child {
+  background: url("./public/group.svg") right no-repeat; 
   position: relative;
   float:right;
   border: 0;
@@ -40,26 +87,25 @@
   padding: 20px;
   font-size: 18px;
   color: rgb(175, 177, 177);
-}
-nav{
+} */
+/* nav{
   color: rgb(175, 177, 177);
-}
-#btndesign{
+} */
+/* #btndesign{
   background-color: rgba(74, 74, 78, 0.5); 
   border-left:1px solid white;
   padding-left: 20px;
   padding-right:20px;
-}
-.search {
+} */
+/* .search {
   position: absolute;
   top: 68px;
   left: 235px;
   font-weight: 300;
   font-family: var(--font-sansation-light);
-}
+} */
 .group-icon {
   margin: 0 2.5px;
-
   position: absolute;
   height: 83.33%;
   width: 83.33%;
@@ -100,7 +146,7 @@ nav{
   background-repeat: no-repeat;
   background-position: top;
 } */
-.community,
+/* .community,
 .login {
   top: 65px;
   font-size: var(--font-size-xl);
@@ -122,7 +168,9 @@ nav{
   right: 0;
   width: 207px;
   height: 22px;
-}
+} */
+
+/* Navbar */
 nav{
   top:0;
   position:relative;
@@ -131,9 +179,12 @@ nav{
   z-index:10;
 }
 .base {
-  background-color: #1a1a1c;
+  background-image: linear-gradient(#1a1a1c,black);
+  background-size: cover;
+
   width: 100%;
-  height: 100vh;
+
+  background-attachment: fixed;
 }
 .navbar-dark .nav-item .nav-link {
   color: #fff;

@@ -1,88 +1,140 @@
 {% extends 'base.html' %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{url_for('static',filename='css/movie_page.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/moviepage2.css')}}">
 {% endblock %}
 {% block content %}
-<div class="movie-page-without-login">
-    <button class="movie-page-without-login-child"></button>
-    <div class="movie-page-without-login-item" id="stars"></div>
-    <img class="movie-page-without-login-inner" alt="poster" src="./public/movie_poster@2x.png" />
-    <h1 class="godzilla-king" id="header">Godzilla : King of the Monsters</h1>
-    <h2 class="user-reviews" id="review">User Reviews</h2>
-    <img class="path-icon" alt="" /><img class="icon-color" alt="" src="./public/iconcolor.svg" />
-    <div class="rectangle-div"></div>
-    <div class="related">Related</div>
-    <img class="path-icon1" alt="" /><img class="icon-color1" alt="" src="./public/iconcolor.svg" />
-    <div class="movie-page-without-login-child1"></div>
-    <div class="blah-blah-shit" id="movie_info">
-        blah blah.. shit abt movie
-    </div>
-    <b class="suspense">Suspense</b>
-    <div class="pg-13-2h-container">
-        <p class="action">2019 · PG-13 · 2h 12m</p>
-        <p class="action">Action | Horror | Suspenste</p>
-    </div>
-    <b class="action1">Action</b>
-    <div class="review">Review</div>
-    <div class="div">+</div>
-    <div class="movie-page-without-login-child2"></div>
-    <div class="adityaxyz">
-        <ul class="adityaxyz1">
-            Aditya.xyz |
-        </ul>
-    </div>
-    <div class="mar-13-2023" id="date">Mar 13, 2023</div>
-    <img class="vector-icon" alt="" src="./public/like.svg" /><img class="vector-icon1" alt=""
-        src="./public/like1.svg" />
-    <div class="lorem-ipsum-dolor-container">
-        <p class="action">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
-            erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
-            gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
-            Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
-            tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
-            lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
-            imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
-            arcu ac tortor.
-        </p>
-        <p class="action">&nbsp;</p>
-        <p class="action">&nbsp;</p>
-        <p class="action">&nbsp;</p>
-        <p class="action">&nbsp;</p>
-        <p class="action">&nbsp;</p>
-    </div>
-    <img class="polygon-icon" alt="" src="./public/polygon-1.svg" />
-    <div class="most-liked-review" id="most_liked">MOST Liked REVIEW</div>
-    <h3 class="title-of-the">Title of the Review</h3>
-    <div class="div1" id="likenum">· 500</div>
-    <div class="div2" id="dislikenum">· 500</div>
-    <b class="horror">Horror</b><img class="rectangle-icon" alt="" src="./public/rectangle-9@2x.png" /><img
-        class="movie-page-without-login-child3" alt="" src="./public/rectangle-9@2x.png" /><img
-        class="movie-page-without-login-child4" alt="" src="./public/rectangle-9@2x.png" /><img
-        class="movie-page-without-login-child5" alt="" src="./public/rectangle-9@2x.png" /><img class="vector-icon2"
-        alt="" src="./public/star.svg" /><img class="vector-icon3" alt="" src="./public/star1.svg" /><img
-        class="vector-icon4" alt="" src="./public/star2.svg" /><img class="vector-icon5" alt=""
-        src="./public/star3.svg" /><img class="vector-icon6" alt="" src="./public/star4.svg" /><img class="image-2-icon"
-        alt="" src="./public/image-2@2x.png" />
-    <div class="nav-bar">
-        <button class="community">Community</button><button class="login">Login</button><button class="vector-parent">
-            <img class="vector-icon7" alt="" src="./public/vector.svg" /><img class="vector-icon8" alt=""
-                src="./public/vector1.svg" />
+<div class="movie-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 image">
+        <img class="poster" alt="poster"
+          src="https://i.etsystatic.com/15375993/r/il/840302/1903068907/il_fullxfull.1903068907_ngnz.jpg" />
+      </div>
+      <div class="col-md-6">
+        <h1 class="movie-name" id="header">Godzilla : King of the Monsters</h1>
+        <br>
+
+        <div class="col-md-8">
+          <div class="container">
+            <div class="row">
+              <div class="com-md-4">
+                <div class="container-sm">
+                  <div class="row">
+                    <div class="col-sm">2019</div>
+                    <div class="col-sm">· PG-13</div>
+                    <div class="col-sm">· 2h 12m</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm">Action</div>
+                    <div class="col-sm"> | Horror</div>
+                    <div class="col-sm"> | Suspense</div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="container">
+                  <div class="stars">
+
+                    <div class="row">
+                      {% for i in range(5) %}
+                      <div class="col">
+                        <img src="{{url_for('static',filename='css/public/star.svg')}}" alt="">
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="movie-info">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
+          erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
+          gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
+          Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
+          tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
+          lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
+          imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
+          arcu ac tortor.
+        </div>
+        <button class="btn btn-light bookmark">
+          BOOKMARK
+          <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
         </button>
-        <div class="search">Search</div>
-        <input class="nav-bar-child" type="search" placeholder="Search" /><button class="filters">Filters</button>
+
+      </div>
     </div>
-    <div class="the">the</div>
-    <div class="page">page.</div>
-    <b class="what-do-i-container">
-        <p class="action"><span class="w">W</span><span>hat</span></p>
-        <p class="action">&nbsp;</p>
-        <p class="action"><span class="w">D</span><span>o</span></p>
-        <p class="action">&nbsp;</p>
-        <p class="i">I</p>
-        <p class="action">&nbsp;</p>
-        <p class="i"><span>D</span><span class="o">o</span></p>
-    </b>
+  </div>
+  <div class="container reviews">
+    <div class="row">
+      <div class="col">
+        <h2 class="user-reviews">
+          User Reviews <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+        </h2>
+      </div>
+      <div class="col">
+        <button class="add-review">+ &nbsp; &nbsp; Review</button>
+      </div>
+    </div>
+    <br>
+    <span class="most-liked-review">&nbsp;MOST LIKED REVIEW&nbsp; &nbsp;</span>
+    <div class="review-container">
+      <div class="row">
+        <div class="col-3">
+          <h3 class="title-of-the">Title of the Review</h3>
+        </div>
+        <div class="col-3">
+          <span class="username">Aditya.xyz |</span>
+          <span class="date" id="date">Mar 13, 2023</span>
+        </div>
+        <div class="col-3">
+          <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like1.svg')}}" />
+          <span class="div1" id="likenum">· 500</span>
+        </div>
+        <div class="col-3">
+          <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" />
+          <span class="div1" id="dislikenum">· 500</span>
+        </div>
+      </div>
+      <br>
+      <div class="review-content">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
+        erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
+        gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
+        Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
+        tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
+        lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
+        imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
+        arcu ac tortor.
+
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container related">
+    <h2 class="user-reviews">
+      Related <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+    </h2>
+    <div class="row">
+      <div class="col">
+        <button class="trending-item"></button>
+      </div>
+      <div class="col">
+        <button class="trending-item"></button>
+      </div>
+      <div class="col">
+        <button class="trending-item"></button>
+      </div>
+      <button class="icon-color-wrapper">
+        <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+      </button>
+    </div>
+    <img class="movie-page-without-login-child3" alt="" src="/public/rectangle-9@2x.png" />
+  </div>
 </div>
 {% endblock %}
