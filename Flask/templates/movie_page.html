@@ -121,15 +121,11 @@
       Related <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
     </h2>
     <div class="row">
+      {% for i in range(5) %}
       <div class="col">
         <button class="trending-item"></button>
       </div>
-      <div class="col">
-        <button class="trending-item"></button>
-      </div>
-      <div class="col">
-        <button class="trending-item"></button>
-      </div>
+      {% endfor %}
       <button class="icon-color-wrapper">
         <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
       </button>
