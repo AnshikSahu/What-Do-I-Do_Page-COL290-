@@ -14,7 +14,7 @@
 
 .poster {
     position: relative;
-    left: 4rem;
+    left: 6rem;
     /* top: 6.25rem;
     left: 9.31rem; */
     border-radius: var(--br-xl);
@@ -24,6 +24,7 @@
 }
 
 .movie-name {
+    left:2rem;
     margin: 0;
     position: relative;
     /* top: 7.44rem;
@@ -35,6 +36,7 @@
 }
 
 .movie-info {
+    left:2rem;
     position: relative;
     font-size: var(--font-size-5xl);
     font-weight: 300;
@@ -46,6 +48,7 @@
 }
 
 .bookmark {
+    left:2rem;
     cursor: pointer;
     border: 0;
     padding: 5px;
@@ -62,13 +65,14 @@
 }
 
 .stars {
+    left:2rem;
     margin: 10px 0;
 }
 
 .reviews {
     position: relative;
     top: 5rem;
-    left: 2rem;
+    left: 4rem;
 }
 
 .add-review {
@@ -115,7 +119,7 @@
 .related {
     position: relative;
     top: 5rem;
-    left: 2rem;
+    left: 4rem;
 }
 
 .trending-item {
