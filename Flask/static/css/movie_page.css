@@ -1,0 +1,364 @@
+.rectangle-button,
+.stars {
+  position: absolute;
+  background-color: var(--color-gray);
+}
+.rectangle-button {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  top: 37rem;
+  left: 62.19rem;
+  width: 6.5rem;
+  height: 2.75rem;
+}
+.stars {
+  top: 11.38rem;
+  left: 60.06rem;
+  width: 12.88rem;
+  height: 2.38rem;
+}
+.rectangle-icon {
+  position: absolute;
+  top: 6.25rem;
+  left: 9.31rem;
+  border-radius: var(--br-xl);
+  width: 19.19rem;
+  height: 27.44rem;
+  object-fit: cover;
+}
+.godzilla-king {
+  margin: 0;
+  position: absolute;
+  top: 7.44rem;
+  left: 32.5rem;
+  font-size: 2.5rem;
+  font-weight: 400;
+  font-family: var(--font-this-is-the-future);
+  color: #d8d9e1;
+}
+.user-reviews {
+  position: absolute;
+  top: calc(50% - 163px);
+  left: 11.69rem;
+  font-size: var(--font-size-11xl);
+}
+.icon-color,
+.path-icon {
+  position: absolute;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.path-icon {
+  height: 2.3%;
+  width: 2.58%;
+  top: 39.37%;
+  right: 71.87%;
+  bottom: 58.33%;
+  left: 25.55%;
+  opacity: 0.87;
+}
+.icon-color {
+  height: 1.8%;
+  width: 1.15%;
+  top: 39.23%;
+  right: 72.6%;
+  bottom: 58.97%;
+  left: 26.25%;
+}
+.rectangle-div {
+  position: absolute;
+  top: calc(50% - 166px);
+  left: 10.75rem;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-brown);
+  width: 0.25rem;
+  height: 2.44rem;
+}
+.related {
+  position: absolute;
+  top: calc(50% + 127px);
+  left: 12rem;
+  font-size: var(--font-size-11xl);
+  font-weight: 700;
+}
+.icon-color1,
+.path-icon1 {
+  position: absolute;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.path-icon1 {
+  height: 2.3%;
+  width: 2.58%;
+  top: 58.53%;
+  right: 76.94%;
+  bottom: 39.17%;
+  left: 20.48%;
+  opacity: 0.87;
+}
+.icon-color1 {
+  height: 1.8%;
+  width: 1.15%;
+  top: 58.78%;
+  right: 77.61%;
+  bottom: 39.43%;
+  left: 21.24%;
+}
+.movie-page-without-login-child1 {
+  position: absolute;
+  top: calc(50% + 124px);
+  left: 11.06rem;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-brown);
+  width: 0.25rem;
+  height: 2.44rem;
+}
+.blah-blah-shit {
+  position: absolute;
+  top: 15.56rem;
+  left: 33.75rem;
+  font-size: var(--font-size-5xl);
+  font-weight: 300;
+  font-family: var(--font-sansation-light);
+  display: inline-block;
+  width: 40.31rem;
+  height: 13.69rem;
+}
+.action {
+  margin: 0;
+}
+.pg-13-2h-container {
+  position: absolute;
+  top: 11.88rem;
+  left: 33.75rem;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  font-family: var(--font-roboto);
+  white-space: pre-wrap;
+}
+.div,
+.review {
+  position: absolute;
+  color: var(--color-gainsboro-100);
+  text-align: center;
+}
+.review {
+  bottom: 55.56rem;
+  left: 63.94rem;
+}
+.div {
+  bottom: 55.69rem;
+  left: 62.56rem;
+  font-size: 2.25rem;
+  font-weight: 300;
+  font-family: var(--font-sansation-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.06rem;
+  height: 1.56rem;
+}
+.movie-page-without-login-child2 {
+  position: absolute;
+  top: 42.31rem;
+  left: 11rem;
+  border-radius: 15px;
+  background-color: var(--color-gray);
+  box-shadow: 1px 2px 5px #a1a1a1;
+  width: 57.19rem;
+  height: 9.81rem;
+}
+.adityaxyz1 {
+  margin: 0;
+  padding-left: 1.36rem;
+}
+.adityaxyz,
+.mar-13-2023 {
+  position: absolute;
+  top: 43.38rem;
+  left: 24.56rem;
+  font-size: var(--font-inherit);
+  font-family: var(--font-inherit);
+  text-align: center;
+}
+.mar-13-2023 {
+  top: 43.5rem;
+  left: 31.63rem;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-roboto);
+  color: #a8a8a8;
+}
+.vector-icon {
+  position: absolute;
+  top: 45.77%;
+  right: 34.41%;
+  bottom: 52.64%;
+  left: 63.89%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.vector-icon,
+.vector-icon1 {
+  height: 1.59%;
+  width: 1.7%;
+}
+.vector-icon1,
+.vector-icon2 {
+  position: absolute;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.vector-icon1 {
+  top: 45.18%;
+  right: 42.67%;
+  bottom: 53.24%;
+  left: 55.63%;
+}
+.vector-icon2 {
+  height: 1.97%;
+  width: 2.18%;
+  top: 12.02%;
+  right: 31.02%;
+  bottom: 86.01%;
+  left: 66.81%;
+}
+.lorem-ipsum-dolor-container {
+  position: absolute;
+  top: 45.31rem;
+  left: 11.88rem;
+  font-size: var(--font-size-lg);
+  font-weight: 300;
+  font-family: var(--font-sansation-light);
+  display: inline-block;
+  width: 56.13rem;
+  height: 6.44rem;
+}
+.polygon-icon {
+  position: absolute;
+  top: 40.69rem;
+  left: 11.88rem;
+  border-radius: 1px;
+  width: 8rem;
+  height: 0.81rem;
+}
+.most-liked-review {
+  position: absolute;
+  top: 40.69rem;
+  left: 12rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  font-family: var(--font-moon);
+  color: var(--color-brown);
+}
+.title-of-the {
+  margin: 0;
+  position: absolute;
+  top: 42.81rem;
+  left: 11.69rem;
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  font-family: inherit;
+}
+.div1,
+.div2 {
+  position: absolute;
+  top: 43rem;
+  left: 52.25rem;
+  font-family: var(--font-ropa-sans);
+}
+.div2 {
+  left: 59.69rem;
+}
+.movie-page-without-login-child3 {
+  left: 9.31rem;
+}
+.movie-page-without-login-child3,
+.movie-page-without-login-child4,
+.movie-page-without-login-child5,
+.movie-page-without-login-child6 {
+  position: absolute;
+  top: 58.38rem;
+  border-radius: var(--br-xl);
+  width: 13.25rem;
+  height: 17.94rem;
+  object-fit: cover;
+}
+.movie-page-without-login-child4 {
+  left: 24.5rem;
+}
+.movie-page-without-login-child5 {
+  left: 39.69rem;
+}
+.movie-page-without-login-child6 {
+  left: 54.88rem;
+}
+.vector-icon3 {
+  right: 28.02%;
+  left: 69.8%;
+}
+.vector-icon3,
+.vector-icon4,
+.vector-icon5,
+.vector-icon6 {
+  position: absolute;
+  height: 1.97%;
+  width: 2.18%;
+  top: 12.02%;
+  bottom: 86.01%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.vector-icon4 {
+  right: 25.04%;
+  left: 72.78%;
+}
+.vector-icon5 {
+  right: 21.92%;
+  left: 75.9%;
+}
+.vector-icon6 {
+  right: 18.94%;
+  left: 78.88%;
+}
+.movie-page-without-login-child7 {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: var(--color-gainsboro-100);
+  position: absolute;
+  top: 30.06rem;
+  left: 32.5rem;
+  border-radius: 25px;
+  width: 11.88rem;
+  height: 2.69rem;
+}
+.bookmark {
+  position: absolute;
+  font-size: 1.38rem;
+  font-weight: 600;
+  font-family: var(--font-roboto);
+  color: var(--color-gray);
+}
+.id-105-icon {
+  position: absolute;
+  height: 1.52%;
+  width: 1.04%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+
+.movie-page-without-login {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-white);
+  font-family: var(--font-sansation-light);
+}

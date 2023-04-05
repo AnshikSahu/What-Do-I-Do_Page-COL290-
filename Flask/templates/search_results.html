@@ -1,0 +1,21 @@
+{% extends 'base2.html' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/search_results.css')}}">
+{% endblock %}
+{% block content %}
+
+<div class="container related">
+    <h2 class="user-reviews" style="color:white;">
+        Search Results <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+    </h2>
+    <div class="row" >
+      {% for i in list %}
+      <div class="col-md-3" style="display:flex;">
+        <a href="{{url_for('movie', movie_id=i[0])}}" class="trending-item" style="background-image: url({{i[1]}});">
+      <!-- <button ></button> -->
+    </a>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}
