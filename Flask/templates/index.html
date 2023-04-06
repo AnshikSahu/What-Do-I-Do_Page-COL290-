@@ -54,12 +54,12 @@ Home
       </div>
     </div>
     <div class="trending col-md-10">
-      <button class="trending1">Trending {{mname}}</button>
+      <button class="trending1">Trending</button>
       <div class="trending-child"></div>
       <div class="row">
         {% for i in range(5) %}
         <div class="col">
-          <button class="trending-item" style="background-image:url('https://c8.alamy.com/comp/BKB5RX/titanic-year-1997-director-james-cameron-kate-winslet-leonardo-dicaprio-BKB5RX.jpg')"></button>
+          <a href="{{url_for('movie', movie_id=link[i][0])}}" class="trending-item" style="background-image:url({{link[i][1]}}"></a>
         </div>
         {% endfor %}
         <button class="icon-color-wrapper">

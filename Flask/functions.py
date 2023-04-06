@@ -18,7 +18,7 @@ def movie_poster(movie_id):
 
 def movies_with_filters_and_search(number_of_movies, genre,released_after,rated_more_than,language,search):
      with engine.connect() as conn:
-         rows =conn.execute(text("SELECT Movie_ID,Posters FROM Movies WHERE Genres regexp \""+genre+"\" AND Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Language regexp \""+language+"\" AND Title like \""+search+"%\" LIMIT "+str(number_of_movies) ))
+         rows =conn.execute(text("SELECT Movie_ID,Posters FROM Movies WHERE Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \""+search+"%\" LIMIT "+str(number_of_movies) ))
          lis=list(rows)
          lis1=[]
          for i in lis:
@@ -27,11 +27,11 @@ def movies_with_filters_and_search(number_of_movies, genre,released_after,rated_
     
 def movies_by_popularity(number_of_movies):
      with engine.connect() as conn:
-         rows= conn.execute(text("SELECT Title FROM Movies ORDER BY Vote_Count DESC LIMIT "+str(number_of_movies)))
+         rows= conn.execute(text("SELECT Movie_ID,Posters FROM Movies ORDER BY Vote_Count DESC LIMIT "+str(number_of_movies)))
          lis=list(rows)
          lis1=[]
          for i in lis:
-             lis1.append(i[0])
+             lis1.append((i[0],i[1]))
          return lis1
 
 def change_rating(Movie_ID,Rating):
@@ -203,9 +203,9 @@ def remove_dislike_review(review_id,user_id):
 #         rows = conn.fetchall()
 #         return rows
 
-def add_user(email,user_name,password,mobile,name):
+def add_user(email,user_name,password,name):
      with engine.connect() as conn:
-         conn.execute(text("INSERT INTO Users (Email,Mobile,User_Name,Password,Name) VALUES (\""+email+"\",\""+mobile+"\",\""+user_name+"\",\""+password+"\",\""+name+"\")"))
+         conn.execute(text("INSERT INTO Users (Email,User_Name,Password,Name) VALUES (\""+email+"\",\""+user_name+"\",\""+password+"\",\""+name+"\")"))
          row=conn.execute(text("SELECT User_ID FROM Users WHERE Email =\""+email+"\" AND user_name = \""+user_name+"\" AND password = \""+password+"\""))
          return list(list(row)[0])[0]
 
@@ -306,10 +306,12 @@ def update_user_password(user_id,password):
 
 # #add_review("1","1","This is the best movie ever","9.5")
 # with engine.connect() as conn:
-#      conn.execute(text("alter table Reviews add Title mediumtext default \""+"My_Movie_experience"+"\""))
+#        conn.execute(text("update Movies set Posters=\"https://images.app.goo.gl/7pSniDf3sURmvH61A\" where Title= \"WALL.E\"" ))
     #conn.execute(text("alter table Movies drop Poster"))
 #add_user("cs1210123$cse.iitd.ac.in","Aditya","anshik","9778521795","Aditya Gupta")
 #update_user_name("2","Pumwkintolly")
 # with engine.connect() as conn:
 #     conn.execute(text("delete from Users where Name=\"Aditya Gupta\""))
-print(get_reviews("1"))
+#print(movies_with_filters_and_search(12,"|","0","0","en","A"))
+#print(movie_details_short("12"))
+#print(add_user("cs1210571@cse.iitd.ac.in","Pumwakintlly","Anish","Adithya Bijoy"))

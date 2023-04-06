@@ -8,7 +8,8 @@ movies = [
 
 @app.route('/')
 def index():
-    return render_template('index.html',mname="Titanic")
+    link=functions.movies_by_popularity(10)
+    return render_template('index.html',mname="Titanic",link=link)
 
 @app.route('/login')
 def login():
@@ -18,7 +19,7 @@ def login():
 def movie():
     movie_id = request.args.get('movie_id')
     list=functions.movie_details_full(movie_id)
-    return render_template('movie_page.html',movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[19],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id))
+    return render_template('movie_page.html',movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-6],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id))
 
 @app.route('/profile')
 def profile():
