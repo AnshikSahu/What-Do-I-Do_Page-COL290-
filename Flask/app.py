@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request,render_template, url_for
 import functions
+
 app = Flask(__name__) #referencing this file
 
 movies = [
@@ -84,5 +85,5 @@ def new_user():
             return render_template('login.html')
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(host="10.17.5.13", port=5000, debug=True)
 
