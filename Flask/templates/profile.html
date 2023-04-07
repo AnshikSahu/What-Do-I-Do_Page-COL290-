@@ -12,7 +12,7 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                     width="150px"
                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span>
+                    class="font-weight-bold">{{user_name}}</span><span class="text-black-50">{{email}}</span><span>
                 </span></div>
         </div>
         <div class="col-md-3 border-right whitebg">
@@ -20,24 +20,26 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="text-right">Profile Settings</h2>
                 </div>
+                <form action=/profile method= POST id="usrform" >
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
-                            placeholder="first name" value=""></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control"
-                            value="" placeholder="surname"></div>
+                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" name = First_Name id= First_Name
+                            placeholder={{first_name}} value={{first_name}}></div>
+                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" name = Sur_Name id= Sur_Name
+                            value={{sur_name}} placeholder={{sur_name}}></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control"
-                            placeholder="enter email id" value=""></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" name= Email id= Email
+                            placeholder={{email}} value={{email}}></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control"
-                            placeholder="username" value=""></div>
-                    <div class="col-md-6"><label class="labels">Password</label><input type="password"
-                            class="form-control" value="" placeholder="password"></div>
+                    <!-- <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control"
+                            placeholder={user_name} value=""></div> -->
+                <div class="col-md-6"><label class="labels">Password</label><input type="password" name= Password id= Password
+                            class="form-control" value={{password}}></div>
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type=submit>Save
                         Profile</button></div>
+                </form>
             </div>
         </div>
         <div class="col-md-3 whitebg">
@@ -49,7 +51,7 @@
                 <button class="btn btn-dark mt-5 bookmark">FRIENDS</button>
                 <button class="btn btn-dark mt-5 bookmark">INTERACTIONS</button>
 
-            </div>
+            </div> 
         </div>
     </div>
     <div class="row">
@@ -58,9 +60,7 @@
             <h2 class="user-reviews">
                 About Yourself
             </h2>
-            <textarea class="about-yourself">
-Thriller, suspense, and horror movie aficionado. Always on the lookout for the next spine-tingling, nail-biting, edge-of-your-seat experience. 
-Let's talk about our favorite movies!
+            <textarea class="about-yourself" form="usrform" name="About" id=About>{{about}}
             </textarea>
             <h2 class="user-reviews">
                 Posts

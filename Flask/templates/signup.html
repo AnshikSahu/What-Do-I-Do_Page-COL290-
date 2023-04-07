@@ -14,20 +14,35 @@
         >
       </div>
       <div class="sign-up-child" id="SignUp"></div>
+      <form action=/new_user method= POST >
       <input
         class="sign-up-item"
         type="text"
         placeholder="Full Name"
-        id="Name"
-      /><input class="sign-up-inner" type="email" placeholder="Email" /><input
+        id=Name
+        name=Name
+      /><input 
+        class="sign-up-inner" 
+        type="email" 
+        placeholder="Email" 
+        id=Email 
+        name=Email 
+      /><input
         class="rectangle-input"
         type="text"
         placeholder="Username"
-        id="UserName"
-      /><input class="sign-up-child1" type="password" placeholder="Password" />
-      <button class="sign-up-wrapper">
+        id=User_Name
+        name=User_Name
+      /><input 
+        class="sign-up-child1" 
+        type="password" 
+        placeholder="Password" 
+        id=Password 
+        name=Password />
+      <button type=submit class="sign-up-wrapper">
         <div class="sign-up1">Sign Up</div>
       </button>
+    </form>
       <div class="already-have-an-container">
         <span>Already have an account?</span><b class="b"> </b>
       </div>

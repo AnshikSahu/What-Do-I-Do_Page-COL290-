@@ -226,11 +226,26 @@ def find_user(user_name):
 
 def update_user_name(user_id,user_name):
      with engine.connect() as conn:
-         conn.execute(text("UPDATE Users SET User_Name = \""+user_name+"\" WHERE User_ID =\""+user_id+"\""))
+         conn.execute(text("UPDATE Users SET Name = \""+user_name+"\" WHERE User_ID =\""+user_id+"\""))
+
+def update_about(user_id,about):
+     with engine.connect() as conn:
+         conn.execute(text("UPDATE Users SET About = \""+about+"\" WHERE User_ID =\""+user_id+"\""))
 
 def update_user_password(user_id,password):
      with engine.connect() as conn:
          conn.execute(text("UPDATE Users SET Password = \""+password+"\" WHERE User_ID = "+"\""+user_id+"\""))
+
+def update_user_email(user_id,email):
+     with engine.connect() as conn:
+         conn.execute(text("UPDATE Users SET Email = \""+email+"\" WHERE User_ID = "+"\""+user_id+"\""))
+
+def exists_user(user_name):
+    with engine.connect() as conn:
+        if(len(list(conn.execute(text("select * from Users where User_Name = \""+user_name+"\""))))==0):
+            return False
+        else:
+            return True
 
 # def update_user_mobile(user_id,mobile):
 #     with engine.connect() as conn:
@@ -305,9 +320,10 @@ def update_user_password(user_id,password):
 #         conn.execute(text("INSERT INTO Users (Email,Mobile,User_Name,Password,Name) VALUES (\"cs1210571@cse.iitd.ac.in\",\"9778521795\",\"Pumwakintolly\",\"atul\",\"Adithya Bijoy\")"))
 
 # #add_review("1","1","This is the best movie ever","9.5")
-# with engine.connect() as conn:
-#        conn.execute(text("update Movies set Posters=\"https://images.app.goo.gl/7pSniDf3sURmvH61A\" where Title= \"WALL.E\"" ))
-    #conn.execute(text("alter table Movies drop Poster"))
+#with engine.connect() as conn:
+#     conn.execute("alter table Users drop About")
+#         conn.execute(text("update Movies set Posters=\"https://images.app.goo.gl/7pSniDf3sURmvH61A\" where Title= \"WALL.E\"" ))
+#    conn.execute(text("alter table Users add About mediumtext default \"I love this website\""))
 #add_user("cs1210123$cse.iitd.ac.in","Aditya","anshik","9778521795","Aditya Gupta")
 #update_user_name("2","Pumwkintolly")
 # with engine.connect() as conn:
@@ -315,3 +331,4 @@ def update_user_password(user_id,password):
 #print(movies_with_filters_and_search(12,"|","0","0","en","A"))
 #print(movie_details_short("12"))
 #print(add_user("cs1210571@cse.iitd.ac.in","Pumwakintlly","Anish","Adithya Bijoy"))
+#print(user_details_with_ID("1"))

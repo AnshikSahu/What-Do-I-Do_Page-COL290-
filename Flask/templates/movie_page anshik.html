@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/moviepage2.css')}}">
+{% endblock %}
+{% block content %}
+<div class="movie-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 image">
+        <img class="poster" alt="poster"
+          src={{poster}}/>
+      </div>
+      <div class="col-md-6">
+        <h1 class="movie-name" id="header">{{movie}}</h1>
+        <br>
+
+        <div class="col-md-8">
+          <div class="container">
+            <div class="row">
+              <div class="com-md-4">
+                <div class="container-sm">
+                  <div class="row">
+                    <div class="col-sm">Year: {{year}}</div>
+                    <div class="col-sm">Age:  {{age}}</div>
+                    <div class="col-sm">Runtime: {{runtime}}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm">{{genres}}</div>
+                    <!-- <div class="col-sm"> | Horror</div>
+                    <div class="col-sm"> | Suspense</div> -->
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="container">
+                  <div class="stars">
+
+                    <div class="row">
+                      {% for i in range(5) %}
+                      <div class="col">
+                        <img src="{{url_for('static',filename='css/public/star.svg')}}" alt="">
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="movie-info">{{overview}}
+          <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
+          erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
+          gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
+          Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
+          tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
+          lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
+          imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
+          arcu ac tortor. -->
+        </div>
+        <button class="btn btn-light bookmark">
+          BOOKMARK
+          <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <div class="container reviews">
+    <div class="row">
+      <div class="col">
+        <h2 class="user-reviews">
+          User Reviews <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+        </h2>
+      </div>
+      <!-- TODO -->
+      <div class="col">
+        <button class="add-review" onclick="document.getElementById('add_rev').style='display:block'; document.getElementById('rev1').style='display:none'; document.getElementById('rev2').style='display:none';">+ &nbsp; &nbsp; Review</button>
+      </div>
+    </div>
+    <br>
+    <form class="review-container" id="add_rev" style="display:none;">
+      <div class="row">
+        <div class="col-3">
+          <input type="text" id="fname" name="fname" placeholder="Title">
+        </div>
+      </div>
+      <br>
+      <div class="review-content">
+        <textarea id="w3review" name="w3review" rows="4" cols="50">
+        </textarea>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-3">
+          <button class="btn btn-light bookmark" type="submit" onclick="document.getElementById('add_rev').style='display:none'; document.getElementById('rev1').style='display:block'; document.getElementById('rev2').style='display:block';">SUBMIT</button>
+        </div>
+      </div>
+    </form>
+    <!-- {% if review != [] %} -->
+    <span class="most-liked-review" id="rev1" style="display:block;" >&nbsp;MOST LIKED REVIEW&nbsp; &nbsp;</span>
+    <div class="review-container" id="rev2" style="display:block;">
+      <div class="row">
+        <div class="col-3">
+          <h3 class="title-of-the">{{review[0][6]}}</h3>
+        </div>
+        <div class="col-3">
+          <span class="username">{{review[0][7]}}</span>
+          <span class="date" id="date">Mar 13, 2023</span>
+        </div>
+        <div class="col-3">
+          <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like1.svg')}}" />
+          <span class="div1" id="likenum">{{review[0][4]}}</span>
+        </div>
+        <div class="col-3">
+          <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" />
+          <span class="div1" id="dislikenum">{{review[0][5]}}</span>
+        </div>
+      </div>
+      <br>
+      <div class="review-content">{{review[0][3]}}
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
+        erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
+        gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
+        Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
+        tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
+        lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
+        imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
+        arcu ac tortor.
+
+      </div>
+    <!-- {% else %}
+    No Reviews Yet!
+    {% endif %} -->
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container related">
+    <h2 class="user-reviews">
+      Related <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+    </h2>
+    <div class="row">
+      {% for i in range(5) %}
+      <div class="col">
+        <button class="trending-item"></button>
+      </div>
+      {% endfor %}
+      <button class="icon-color-wrapper">
+        <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+      </button>
+    </div>
+    <img class="movie-page-without-login-child3" alt="" src="/public/rectangle-9@2x.png" />
+  </div>
+</div>
+{% endblock %}
