@@ -1,0 +1,12 @@
+.text {
+    position: absolute;
+    top: -30px;
+    left: 120px;
+    font-size: var(--font-size-91xl);
+    display: inline-block;
+    font-family: var(--font-ceuretas);
+    text-align: center;
+    width: 565px;
+    text-shadow: 2px 2px 4px #950740;
+    color: var(--color-crimson);
+  }

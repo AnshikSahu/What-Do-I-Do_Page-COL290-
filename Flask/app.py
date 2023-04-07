@@ -29,6 +29,10 @@ def profile():
 def loginotp():
     return render_template('loginotp.html')
 
+@app.route('/community')
+def community():
+    return render_template('community.html')
+
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
