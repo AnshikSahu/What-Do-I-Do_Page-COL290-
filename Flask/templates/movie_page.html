@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-md-4 image">
         <img class="poster" alt="poster"
-          src={{poster}}/>
+          src="https://i.etsystatic.com/15375993/r/il/840302/1903068907/il_fullxfull.1903068907_ngnz.jpg" />
       </div>
       <div class="col-md-6">
         <h1 class="movie-name" id="header">{{movie}}</h1>
@@ -74,14 +74,33 @@
           User Reviews <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
         </h2>
       </div>
+      <!-- TODO -->
       <div class="col">
-        <button class="add-review">+ &nbsp; &nbsp; Review</button>
+        <button class="add-review" onclick="document.getElementById('add_rev').style='display:block'; document.getElementById('rev1').style='display:none'; document.getElementById('rev2').style='display:none';">+ &nbsp; &nbsp; Review</button>
       </div>
     </div>
     <br>
-    {% if review != [] %}
-    <span class="most-liked-review">&nbsp;MOST LIKED REVIEW&nbsp; &nbsp;</span>
-    <div class="review-container">
+    <form class="review-container" id="add_rev" style="display:none;">
+      <div class="row">
+        <div class="col-3">
+          <input type="text" id="fname" name="fname" placeholder="Title">
+        </div>
+      </div>
+      <br>
+      <div class="review-content">
+        <textarea id="w3review" name="w3review" rows="4" cols="50">
+        </textarea>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-3">
+          <button class="btn btn-light bookmark" type="submit" onclick="document.getElementById('add_rev').style='display:none'; document.getElementById('rev1').style='display:block'; document.getElementById('rev2').style='display:block';">SUBMIT</button>
+        </div>
+      </div>
+    </form>
+    <!-- {% if review != [] %} -->
+    <span class="most-liked-review" id="rev1" style="display:block;" >&nbsp;MOST LIKED REVIEW&nbsp; &nbsp;</span>
+    <div class="review-container" id="rev2" style="display:block;">
       <div class="row">
         <div class="col-3">
           <h3 class="title-of-the">{{review[0][6]}}</h3>
@@ -102,7 +121,7 @@
       <br>
       <div class="review-content">{{review[0][3]}}
 
-        <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
         erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
         gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
@@ -110,12 +129,12 @@
         tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
         lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
         imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
-        arcu ac tortor. -->
+        arcu ac tortor.
 
       </div>
-    {% else %}
+    <!-- {% else %}
     No Reviews Yet!
-    {% endif %}
+    {% endif %} -->
     </div>
   </div>
   <br>
