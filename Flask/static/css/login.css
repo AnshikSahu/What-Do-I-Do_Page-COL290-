@@ -51,40 +51,7 @@
   width: 285px;
   height: 150px;
 }
-.rectangle-input,
-.sign-up-child1,
-.sign-up-inner,
-.sign-up-item {
-  border: 0;
-  background-color: var(--color-gainsboro-100);
-  position: absolute;
-  top: 352px;
-  left: 601px;
-  border-radius: var(--br-3xs);
-  width: 223px;
-  height: 41px;
-  font-size: 17px;
-  padding-left: 15px;
-}
-.rectangle-input,
-.sign-up-child1,
-.sign-up-inner {
-  top: 403px;
-  left: 602px;
-  height: 45px;
-  font-size: 17px;
-  padding-left: 15px;
-}
-.rectangle-input,
-.sign-up-child1 {
-  top: 458px;
-  left: 601px;
-}
-.sign-up-child1 {
-  top: 513px;
-  left: 600px;
-}
-.email-mobile,
+/* .email-mobile,
 .full-name,
 .username {
   position: absolute;
@@ -98,7 +65,7 @@
 .username {
   top: 470px;
 }
-.password,
+.password,*/
 .sign-up1 {
   position: absolute;
   top: 525px;
@@ -111,7 +78,7 @@
   font-family: var(--font-special-elite);
   color: var(--color-white);
   text-align: center;
-}
+}/*
 .sign-up-wrapper {
   cursor: pointer;
   border: 0;
@@ -176,79 +143,7 @@
 .login1 {
   left: 1081px;
 }
-.vector-icon,
-.vector-icon1 {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: -5.56%;
-  right: 5.56%;
-  bottom: 5.56%;
-  left: -5.56%;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-}
-.vector-icon1 {
-  height: 35.28%;
-  width: 35.27%;
-  top: 70.28%;
-  right: -5.55%;
-  bottom: -5.56%;
-  left: 70.28%;
-}
-.vector-parent {
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-  position: absolute;
-  top: 9px;
-  left: 490px;
-  width: 18px;
-  height: 18px;
-}
-.search {
-  position: absolute;
-  top: 8px;
-  left: 16px;
-  font-weight: 300;
-}
-.nav-bar-child {
-  border: 0;
-  background-color: var(--color-darkslategray);
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: var(--br-3xl);
-  width: 528px;
-  height: 37px;
-  cursor: default;
-}
-.filters,
-.nav-bar {
-  position: absolute;
-  color: var(--color-white);
-  font-family: var(--font-sansation-light);
-}
-.filters {
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-  top: 8px;
-  left: 720px;
-  font-size: var(--font-size-xl);
-  font-weight: 300;
-  text-align: left;
-  display: inline-block;
-}
-.nav-bar {
-  top: 57px;
-  left: 220px;
-  width: 1132px;
-  height: 37px;
-}
+
 .sign-up {
   position: relative;
   background-color: var(--color-gray-200);

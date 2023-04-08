@@ -260,3 +260,8 @@
   color: var(--color-gray-100);
   font-family: var(--font-special-elite);
 }
+#login_icon{
+  position:absolute;
+  top:370px;
+  left:690px;
+}

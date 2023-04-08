@@ -7,8 +7,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 image">
-        <img class="poster" alt="poster"
-          src={{poster}}/>
+        <img class="poster" alt="poster" src={{poster}} />
       </div>
       <div class="col-md-6">
         <h1 class="movie-name" id="header">{{movie}}</h1>
@@ -21,7 +20,7 @@
                 <div class="container-sm">
                   <div class="row">
                     <div class="col-sm">Year: {{year}}</div>
-                    <div class="col-sm">Age:  {{age}}</div>
+                    <div class="col-sm">Age: {{age}}</div>
                     <div class="col-sm">Runtime: {{runtime}}</div>
                   </div>
                   <div class="row">
@@ -36,7 +35,7 @@
                   <div class="stars">
 
                     <div class="row">
-                      {% for i in range(5) %}
+                      {% for i in range(stars) %}
                       <div class="col">
                         <img src="{{url_for('static',filename='css/public/star.svg')}}" alt="">
                       </div>
@@ -59,10 +58,13 @@
           imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
           arcu ac tortor. -->
         </div>
-        <button class="btn btn-light bookmark">
-          BOOKMARK
-          <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
-        </button>
+        <form action="add_bookmark" method="POST">
+          <input type="text" id=movie_id name=movie_id value="{{movie_id}}" style="display:none;">
+            <button class="btn btn-light bookmark" type="submit">
+              BOOKMARK
+              <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
+            </button>
+          </form>
 
       </div>
     </div>
@@ -75,50 +77,60 @@
         </h2>
       </div>
       <div class="col">
-        <button class="add-review" onclick="document.getElementById('add_rev').style='display:block'; document.getElementById('rev1').style='display:none'; document.getElementById('rev2').style='display:none';">+ &nbsp; &nbsp; Review</button>
+        <button class="add-review"
+          onclick="document.getElementById('add_rev').style='display:block'; document.getElementById('rev1').style='display:none'; document.getElementById('rev2').style='display:none';">+
+          &nbsp; &nbsp; Review</button>
       </div>
     </div>
     <br>
-    <form class="review-container" id="add_rev" style="display:none;">
+    <form action=/add_review method=POST class="review-container" id="add_rev" style="display:none;">
       <div class="row">
         <div class="col-3">
-          <input type="text" id="fname" name="fname" placeholder="Title">
+          <input type="text" id=movie_id name=movie_id value="{{movie_id}}" style="display:none;">
+          <input type="text" id="fname" name="fname" placeholder="Title" class="title-of-the"
+            style="color:white; background-color:#1a1a1c;border:1px solid white; padding:5px;">
         </div>
       </div>
       <br>
+      <br>
+      <br>
       <div class="review-content">
-        <textarea id="w3review" name="w3review" rows="4" cols="50">
+        <textarea id="w3review" name="w3review" rows="4" cols="80" class="review-content"
+          style="color:white; background-color:#1a1a1c;border:1px solid white; padding:5px;">
         </textarea>
       </div>
       <br>
       <div class="row">
         <div class="col-3">
-          <button class="btn btn-light bookmark" type="submit" onclick="document.getElementById('add_rev').style='display:none'; document.getElementById('rev1').style='display:block'; document.getElementById('rev2').style='display:block';">SUBMIT</button>
+          <button class="btn btn-light bookmark" type="submit"
+            onclick="document.getElementById('add_rev').style='display:none'; document.getElementById('rev1').style='display:block'; document.getElementById('rev2').style='display:block';">SUBMIT</button>
         </div>
       </div>
     </form>
     {% if review != [] %}
     <span class="most-liked-review">&nbsp;MOST LIKED REVIEW&nbsp; &nbsp;</span>
+    {% for i in review %}
     <div class="review-container">
+
       <div class="row">
         <div class="col-3">
-          <h3 class="title-of-the">{{review[0][6]}}</h3>
+          <h3 class="title-of-the">{{i[6]}}</h3>
         </div>
         <div class="col-3">
-          <span class="username">{{review[0][7]}}</span>
+          <span class="username">{{i[7]}}</span>
           <span class="date" id="date">Mar 13, 2023</span>
         </div>
         <div class="col-3">
           <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like1.svg')}}" />
-          <span class="div1" id="likenum">{{review[0][4]}}</span>
+          <span class="div1" id="likenum">{{i[4]}}</span>
         </div>
         <div class="col-3">
           <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" />
-          <span class="div1" id="dislikenum">{{review[0][5]}}</span>
+          <span class="div1" id="dislikenum">{{i[5]}}</span>
         </div>
       </div>
       <br>
-      <div class="review-content">{{review[0][3]}}
+      <div class="review-content">{{i[3]}}
 
         <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
@@ -131,11 +143,17 @@
         arcu ac tortor. -->
 
       </div>
-    {% else %}
-    No Reviews Yet!
-    {% endif %}
     </div>
+    <br>
+    {% endfor %}
+
+
   </div>
+
+  {% else %}
+  No Reviews Yet!
+  {% endif %}
+
   <br>
   <br>
   <div class="container related">
@@ -145,7 +163,8 @@
     <div class="row">
       {% for i in range(5) %}
       <div class="col">
-        <button class="trending-item"></button>
+        <a href="{{url_for('movie', movie_id=link[i][0])}}" class="trending-item"
+          style="background-image:url({{link[i][1]}})"></a>
       </div>
       {% endfor %}
       <button class="icon-color-wrapper">

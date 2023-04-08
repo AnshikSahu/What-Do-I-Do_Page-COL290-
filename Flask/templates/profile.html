@@ -5,101 +5,124 @@
 {% block content %}
 <div class="profile-contaianer">
 
+    <form action=/profile method=POST id="usrform">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3 border-right whitebg">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+                        class="font-weight-bold">{{user_name}}</span><span class="text-black-50">{{email}}</span><span>
+                    </span></div>
+            </div>
+            <div class="col-md-3 border-right whitebg">
+                <div class="p-3 py-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="text-right">Profile Settings</h2>
+                    </div>
 
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-3 border-right whitebg">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                    width="150px"
-                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold">{{user_name}}</span><span class="text-black-50">{{email}}</span><span>
-                </span></div>
-        </div>
-        <div class="col-md-3 border-right whitebg">
-            <div class="p-3 py-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="text-right">Profile Settings</h2>
-                </div>
-                <form action=/profile method= POST id="usrform" >
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" name = First_Name id= First_Name
-                            placeholder={{first_name}} value={{first_name}}></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" name = Sur_Name id= Sur_Name
-                            value={{sur_name}} placeholder={{sur_name}}></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" name= Email id= Email
-                            placeholder={{email}} value={{email}}></div>
-                </div>
-                <div class="row mt-3">
-                    <!-- <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control"
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
+                                name=First_Name id=First_Name placeholder={{first_name}} value={{first_name}}></div>
+                        <div class="col-md-6"><label class="labels">Surname</label><input type="text"
+                                class="form-control" name=Sur_Name id=Sur_Name value={{sur_name}}
+                                placeholder={{sur_name}}></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Email ID</label><input type="text"
+                                class="form-control" name=Email id=Email placeholder={{email}} value={{email}}></div>
+                    </div>
+                    <div class="row mt-3">
+                        <!-- <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control"
                             placeholder={user_name} value=""></div> -->
-                <div class="col-md-6"><label class="labels">Password</label><input type="password" name= Password id= Password
-                            class="form-control" value={{password}}></div>
+                        <div class="col-md-12"><label class="labels">Password</label><input type="password"
+                                name=Password id=Password class="form-control" value={{password}}></div>
+                    </div>
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type=submit>Save
-                        Profile</button></div>
-                </form>
+            </div>
+            <div class="col-md-3 whitebg">
+                <div class="p-3 py-5">
+                    <a class="btn btn-dark mt-5 bookmark" href="/bookmarks">
+                        BOOKMARKS
+                        <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
+                    </a>
+                    <!-- <button class="btn btn-dark mt-5 bookmark">FRIENDS</button>
+                <button class="btn btn-dark mt-5 bookmark">INTERACTIONS</button> -->
+
+                </div>
             </div>
         </div>
-        <div class="col-md-3 whitebg">
-            <div class="p-3 py-5">
-                <button class="btn btn-dark mt-5 bookmark">
-                    BOOKMARKS
-                    <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
-                </button>
-                <button class="btn btn-dark mt-5 bookmark">FRIENDS</button>
-                <button class="btn btn-dark mt-5 bookmark">INTERACTIONS</button>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-9 whitebg">
+                <h2 class="user-reviews">
+                    About Yourself
+                </h2>
+                <textarea class="about-yourself" form="usrform" name="About" id=About>{{about}}</textarea>
 
-            </div> 
+
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type=submit>Save
+                        Profile</button></div>
+
+            </div>
         </div>
-    </div>
+    </form>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-9 whitebg">
             <h2 class="user-reviews">
-                About Yourself
+                Reviews
             </h2>
-            <textarea class="about-yourself" form="usrform" name="About" id=About>{{about}}
-            </textarea>
-            <h2 class="user-reviews">
-                Posts
-            </h2>
+            {% if review != [] %}
+            {% for i in review %}
             <div class="review-container">
+
                 <div class="row">
                     <div class="col-3">
-                        <h3 class="title-of-the">Title of the Review</h3>
+                        <h3 class="title-of-the">{{i[6]}}</h3>
                     </div>
                     <div class="col-3">
-                        <span class="username">Aditya.xyz |</span>
+                        <span class="username">{{i[7]}}</span>
                         <span class="date" id="date">Mar 13, 2023</span>
                     </div>
                     <div class="col-3">
                         <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like1.svg')}}" />
-                        <span class="div1" id="likenum">· 500</span>
+                        <span class="div1" id="likenum">{{i[4]}}</span>
                     </div>
                     <div class="col-3">
                         <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" />
-                        <span class="div1" id="dislikenum">· 500</span>
+                        <span class="div1" id="dislikenum">{{i[5]}}</span>
                     </div>
                 </div>
                 <br>
-                <div class="review-content">
+                <div class="review-content">{{i[3]}}
 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
-                    erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
-                    gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
-                    Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
-                    tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
-                    lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
-                    imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
-                    arcu ac tortor.
+                    <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
+        erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
+        gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
+        Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
+        tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
+        lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
+        imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
+        arcu ac tortor. -->
 
                 </div>
             </div>
+            <br>
+            {% endfor %}
+
+
         </div>
+
+        {% else %}
+        No Reviews Yet!
+        {% endif %}
+
+        <br>
+        <br>
     </div>
+</div>
 
 </div>
 </div>
