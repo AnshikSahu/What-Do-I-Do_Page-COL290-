@@ -72,8 +72,11 @@ def strangerprofile():
 @app.route('/movie')
 def movie():
     movie_id = request.args.get('movie_id')
+    bookmarked=False
+    if movie_id in functions.get_bookmarks(str(session['id'])):
+            bookmarked=True
     list=functions.movie_details_full(movie_id)
-    return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2))
+    return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2), bookmarked=bookmarked)
 
 @app.route('/add_bookmark',methods=['POST','GET'])
 def add_bookmark():
@@ -81,7 +84,7 @@ def add_bookmark():
         movie_id=request.form['movie_id']
         functions.add_bookmark(str(session['id']),movie_id)
         list=functions.movie_details_full(movie_id)
-        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2))
+        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2), bookmarked=True)
 
 @app.route('/bookmarks')
 def bookmarks():
@@ -89,8 +92,10 @@ def bookmarks():
     user_bookmarks.pop(0)
     print(user_bookmarks)
     l1=[]
+    
     for i in user_bookmarks:
-        l1.append(functions.get_bookmark_posters(int(i)))
+        if i!='':
+            l1.append(functions.get_bookmark_posters(int(i)))
     print(l1)
     return render_template('bookmarks.html', list=l1)
     
@@ -98,12 +103,12 @@ def bookmarks():
 def profile():
     if request.method == 'GET':
         user_details=functions.user_details_with_ID(str(session['id']))
-        first_name=user_details[-5].split()[0]
-        last_name=user_details[-5].split()[-1]
+        first_name=user_details[6].split()[0]
+        last_name=user_details[6].split()[-1]
         email=user_details[2]
         password=user_details[5]
         user_name=user_details[4]
-        about=user_details[-1]
+        about=user_details[10]
         return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password,about=about,review=functions.get_reviews_by_user(session['id']))
     if request.method=='POST':
         for i in request.form.keys():print(i)
@@ -126,9 +131,12 @@ def add_reveiw():
         title=request.form['fname']
         review=request.form['w3review']
         movie_id=request.form['movie_id']
+        bookmarked=False
+        if movie_id in functions.get_bookmarks(str(session['id'])):
+            bookmarked=True
         functions.add_review(movie_id,str(session['id']),title,review)
         list=functions.movie_details_full(movie_id)
-        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2))
+        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2), bookmarked=bookmarked)
 
 
 # @app.route('/modify_profile')
@@ -159,7 +167,7 @@ def new_user():
         password=request.form['Password']
         bool=functions.exists_user(user_name)
         if (bool):
-            return render_template('index.html')
+            return render_template('index.html',link=functions.movies_by_popularity(10))
         else:
             functions.add_user(email,user_name,password,name)
             session['loggedin'] = True
@@ -170,7 +178,7 @@ def new_user():
             account = cursor.fetchone()
             session['id'] = account['User_ID'] #TODO
             session['username'] = account['User_Name']
-            return render_template('login.html') # I will modify this
+            return render_template('index.html',link=functions.movies_by_popularity(10)) # I will modify this
 
 @app.route('/community')
 def community():

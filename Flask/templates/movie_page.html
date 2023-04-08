@@ -60,11 +60,18 @@
         </div>
         <form action="add_bookmark" method="POST">
           <input type="text" id=movie_id name=movie_id value="{{movie_id}}" style="display:none;">
-            <button class="btn btn-light bookmark" type="submit">
-              BOOKMARK
-              <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
-            </button>
-          </form>
+          {% if bookmarked %}
+          <button class="btn btn-light bookmark" type="submit" disabled title="Already bookmarked!">
+            BOOKMARK
+            <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
+          </button>
+          {% else %}
+          <button class="btn btn-light bookmark" type="submit">
+            BOOKMARK
+            <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
+          </button>
+          {% endif %}
+        </form>
 
       </div>
     </div>
@@ -118,15 +125,25 @@
         </div>
         <div class="col-3">
           <span class="username">{{i[7]}}</span>
-          <span class="date" id="date">Mar 13, 2023</span>
+          <span class="date" id="date">Apr 08, 2023</span>
         </div>
         <div class="col-3">
-          <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like1.svg')}}" />
-          <span class="div1" id="likenum">{{i[4]}}</span>
+          <!-- <form action="" method="post"> -->
+            <button type="submit"  style="background:transparent;color:white; border:none;" id="likebtn{{i[0]}}"
+            onclick="document.getElementById('likenum{{i[0]}}').innerHTML=1;
+            document.getElementById('likebtn{{i[0]}}').style='border:0.1px solid white; background-color:black; color:white; padding:2px;'">
+              <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" id="likeimg{{i[0]}}" />
+              <label class="div1" id="likenum{{i[0]}}" disabled>{{i[4]}}</label>
+            </button>
+          <!-- </form> -->
         </div>
         <div class="col-3">
-          <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" />
-          <span class="div1" id="dislikenum">{{i[5]}}</span>
+          <form action="" method="post">
+            <button type="submit"  style="background:transparent;color:white; border:none;" id="dislikebtn">
+              <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/dislike.svg')}}" />
+              <label class="div1" id="dislikenum" disabled>{{i[5]}}</label>
+            </button>
+          </form>
         </div>
       </div>
       <br>
