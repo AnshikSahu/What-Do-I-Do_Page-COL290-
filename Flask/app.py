@@ -88,7 +88,11 @@ def bookmarks():
     user_bookmarks = functions.get_bookmarks(str(session['id']))
     user_bookmarks.pop(0)
     print(user_bookmarks)
-    return render_template('bookmarks.html', list=user_bookmarks)
+    l1=[]
+    for i in user_bookmarks:
+        l1.append(functions.get_bookmark_posters(int(i)))
+    print(l1)
+    return render_template('bookmarks.html', list=l1)
     
 @app.route('/profile',methods=['POST','GET'])
 def profile():

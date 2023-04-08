@@ -27,6 +27,10 @@ def movies_by_popularity(number_of_movies):
           conn.execute(("SELECT Movie_ID,Posters FROM Movies ORDER BY Vote_Count DESC LIMIT "+str(number_of_movies)))
           rows=conn.fetchall()
           return rows
+def get_bookmark_posters(movie_id):
+          conn.execute("SELECT Movie_ID,Posters FROM Movies where Movie_ID="+str(movie_id))
+          rows=conn.fetchall()
+          return rows        
 
 def add_review(movie_id,user_id,title,review):
 #       with engine.connect() as conn:

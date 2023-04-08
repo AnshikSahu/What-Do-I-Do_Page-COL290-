@@ -1,6 +1,10 @@
 body {
   margin: 0;
   line-height: normal;
+  background-image: url("public/bg2.jpg"); /* replace with your image URL */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment:fixed;
 }
 
 :root {

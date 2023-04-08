@@ -9,18 +9,18 @@
         Bookmarks <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
     </h2>
     <div class="row">
-    {% if list!=[] %}
+    <!-- {% if list!=[] %} -->
       {% for i in list %}
       <div class="col-md-3" style="display:flex; margin-bottom:15px;">
-        <a href="{{url_for('movie', movie_id=i[0])}}" class="trending-item" style="background-image: url({{i[1]}});">
+        <a href="{{url_for('movie', movie_id=i[0][0])}}" class="trending-item" style="background-image: url({{i[0][1]}});">
       <!-- <button ></button> -->
     </a>
       </div>
       {% endfor %}
-      {% else %}
+      <!-- {% else %} -->
       <br><br>
       <h3 style="color:white;">No Bookmarks Yet!</h3>
-      {% endif %}
+      <!-- {% endif %} -->
     </div>
 </div>
 {% endblock %}
