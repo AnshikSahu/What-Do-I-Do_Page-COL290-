@@ -1,17 +1,20 @@
 {% extends 'base2.html' %}
+{% block stylesheets1 %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/title.css') }}">
+{% endblock %}
 {% block twdidp %}
-    <!-- Title -->
-    <div class="title col-2">
-      <div class="the">the</div>
-      <div class="page">page.</div>
-      <b class="what-do-i-container">
-        <p class="what"><span class="w">W</span><span style="color:white">hat</span></p>
-        <p class="what">&nbsp;</p>
-        <p class="what"><span class="w">D</span><span class="o">o</span></p>
-        <p class="what">&nbsp;</p>
-        <p class="i">I</p>
-        <p class="what">&nbsp;</p>
-        <p class="i"><span>D</span><span class="o">o</span></p>
-      </b>
-    </div>
+<!-- Title -->
+<div class="title col-2">
+  <div class="the">the</div>
+  <div class="page">page.</div>
+  <b class="what-do-i-container">
+    <p class="what"><span class="w">W</span><span style="color:white">hat</span></p>
+    <p class="what">&nbsp;</p>
+    <p class="what"><span class="w">D</span><span class="o">o</span></p>
+    <p class="what">&nbsp;</p>
+    <p class="i">I</p>
+    <p class="what">&nbsp;</p>
+    <p class="i"><span>D</span><span class="o">o</span></p>
+  </b>
+</div>
 {% endblock %}

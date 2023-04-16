@@ -1,0 +1,63 @@
+/* TITLE */
+.what-do-i-container {
+  position: absolute;
+  top: 93px;
+  left: 0;
+  font-size: 45px;
+  display: inline-block;
+  font-family: var(--font-ceuretas);
+  width: 78px;
+  height: 304px;
+  text-shadow: 2px 2px 4px #950740;
+}
+
+.title {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  width: 78px;
+  height: 490px;
+  font-size: var(--font-size-18xl);
+  font-family: var(--font-bright-sunshine-demo);
+  z-index: 10;
+}
+
+.page,
+.the {
+  position: absolute;
+  left: 0;
+  color: white;
+}
+
+.the {
+  top: 0;
+}
+
+.page {
+  top: 600px;
+}
+
+.w {
+  color: var(--color-crimson);
+}
+
+.i,
+.what {
+  margin: 0;
+}
+
+.i {
+  color: var(--color-crimson);
+}
+
+.o {
+  color: var(--color-white);
+}
+
+/* Styles for small screens */
+@media screen and (max-width: 967px) {
+
+  .title{
+    display:none;
+  }
+}

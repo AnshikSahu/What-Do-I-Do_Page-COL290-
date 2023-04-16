@@ -15,39 +15,29 @@
 </div>
 {%endfor%}
 
-    <div class="sign-up">
-      <div class="the-parent">
-        <div class="the">the</div>
-        <div class="page">page.</div>
-        <b class="what-do-i-container"
-          ><span>W</span><span class="hat">hat </span><span>D</span
-          ><span class="hat">o </span><span>I D</span
-          ><span class="hat">o</span></b
-        >
-      </div>
-      <div class="sign-up-child" id="SignUp"></div>
-      <form action=/login method= POST >
-        <img src = "{{url_for('static', filename='css/public/login_icon.png')}}" height="50px" width="50px" id="login_icon">
-        <input
-        class="rectangle-input"
-        type="text"
-        placeholder="Username"
-        id=User_Name
-        name=User_Name
-      /><input 
-        class="sign-up-child1" 
-        type="password" 
-        placeholder="Password" 
-        id=Password 
-        name=Password />
-      <button type=submit class="sign-up-wrapper">
-        <div class="sign-up1">Log in</div>
-      </button>
-    </form>
-      <div class="already-have-an-container">
-        <span>Don't have an account?</span><b class="b"> </b>
-      </div>
-      <a class="login" id="login" href="/signup">Sign up!!</a>
-    </div>
+<div class="sign-up">
+  <div class="title-parent">
+    <span class="the">the</span>
+    <span class="what-do-i-container"><span>W</span><span class="hat">hat </span><span>D</span><span class="hat">o
+      </span><span>I D</span><span class="hat">o</span></span>
+      <span class="page">page.</span>
+  </div>
+  <div class="sign-up-child" id="SignUp">
+  <form action=/login method=POST>
+    <br>
+    <img src="{{url_for('static', filename='css/public/login_icon.png')}}" height="60px" width="60px" >
+    <input class="form-control" type="text" placeholder="Username" id=User_Name name=User_Name />
+    <input
+      class="form-control" type="password" placeholder="Password" id=Password name=Password />
+    <button type=submit class="sign-up-wrapper">
+      <div class="sign-up1">Log in</div>
+    </button>
+  </form>
+</div>
+  <div class="already-have-an-container">
+    <span>Don't have an account?</span><b class="b"> </b>
+  </div>
+  <a class="login" id="login" href="/signup">Sign up!!</a>
+</div>
 
 {% endblock %}
