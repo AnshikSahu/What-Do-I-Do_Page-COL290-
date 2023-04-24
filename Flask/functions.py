@@ -77,9 +77,9 @@ def get_reviews_by_user(user_id):
 
 def add_user(email,user_name,password,name):
 #       with engine.connect() as conn:
-          conn.execute(("INSERT INTO Users (Email,User_Name,Password,Name) VALUES (\""+email+"\",\""+user_name+"\",\""+password+"\",\""+name+"\")"))
+          conn.execute(("INSERT INTO Users (Email,User_Name,Password,Name) VALUES (\""+email+"\",\""+user_name+"\",\""+password.hexdigest()+"\",\""+name+"\")"))
           conn.execute("commit")
-          conn.execute(("SELECT User_ID FROM Users WHERE Email =\""+email+"\" AND user_name = \""+user_name+"\" AND password = \""+password+"\""))
+          conn.execute(("SELECT User_ID FROM Users WHERE Email =\""+email+"\" AND user_name = \""+user_name+"\" AND password = \""+password.hexdigest()+"\""))
           row=conn.fetchall()
           return list(list(row)[0])[0]
 
@@ -101,7 +101,7 @@ def update_about(user_id,about):
          conn.execute("commit")
 def update_user_password(user_id,password):
 #      with engine.connect() as conn:
-          conn.execute(("UPDATE Users SET Password = \""+password+"\" WHERE User_ID = "+"\""+user_id+"\""))
+          conn.execute(("UPDATE Users SET Password = \""+password.hexdigest()+"\" WHERE User_ID = "+"\""+user_id+"\""))
           conn.execute("commit")
 def update_user_email(user_id,email):
 #      with engine.connect() as conn:
@@ -133,6 +133,51 @@ def get_bookmarks(userid):
         temp=conn.fetchall()[0][0]
         l=temp.split("|")
         return l
+
+def add_like_review(postid,userid, movieid):
+        conn.execute("select Liked_Users from Reviews where Review_ID="+postid)
+        temp=conn.fetchall()[0][0]
+        l=[]
+        if(temp != None):
+                l=temp.split("|")
+        conn.execute("select Likes from Reviews where Review_ID ="+postid)
+        num=conn.fetchall()[0][0]
+        conn.execute("select Dislikes from Reviews where Review_ID ="+postid)
+        dislikes=conn.fetchall()[0][0]
+
+        if userid in l: 
+                return (int(num),int(dislikes))
+        else:
+                conn.execute("update Reviews set Liked_Users =\""+num+"|"+userid+"\" where Review_ID ="+postid)
+                conn.execute("commit")
+                conn.execute("select Likes from Reviews where Review_ID ="+postid)
+                temp=conn.fetchall()[0][0]
+                conn.execute("update Reviews set Likes = \""+str(int(num)+1)+"\" where Review_ID ="+postid)
+                conn.execute("commit")
+                return (int(num)+1,int(dislikes))
+
+
+def add_unlike_review(postid,userid, movieid):
+        conn.execute("select Disliked_Users from Reviews where Review_ID="+postid)
+        temp=conn.fetchall()[0][0]
+        l=[]
+        if(temp != None):
+                l=temp.split("|")
+        conn.execute("select Likes from Reviews where Review_ID ="+postid)
+        likes=conn.fetchall()[0][0]     
+        conn.execute("select Dislikes from Reviews where Review_ID ="+postid)
+        num=conn.fetchall()[0][0]
+        if userid in l: 
+                return (int(likes),int(num))
+        else:
+                conn.execute("update Reviews set Disliked_Users =\""+num+"|"+userid+"\" where Review_ID ="+postid)
+                conn.execute("commit")
+                conn.execute("select Dislikes from Reviews where Review_ID ="+postid)
+                temp=conn.fetchall()[0][0]
+                conn.execute("update Reviews set Dislikes = \""+str(int(num)+1)+"\" where Review_ID ="+postid)
+                conn.execute("commit")
+                return (int(likes),int(num)+1)
+
 
         
 

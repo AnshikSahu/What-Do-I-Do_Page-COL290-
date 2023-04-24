@@ -1,7 +1,8 @@
-from flask import Flask, request, session, redirect, url_for, render_template, flash
+from flask import Flask, request, session, redirect, url_for, render_template, flash, jsonify
 from flaskext.mysql import MySQL
 import pymysql 
 import functions
+import hashlib
 
 app = Flask(__name__) #referencing this file
 
@@ -36,7 +37,8 @@ def login():
             username = request.form['User_Name']
             password = request.form['Password']
             # Check if account exists using MySQL
-            cursor.execute('SELECT * FROM Users WHERE User_Name = %s AND Password = %s', (username, password))
+            password = hashlib.sha256(password.encode())
+            cursor.execute('SELECT * FROM Users WHERE User_Name = %s AND Password = %s', (username, password.hexdigest()))
             # Fetch one record and return result
             account = cursor.fetchone()
         # If account exists in accounts table in out database
@@ -73,10 +75,13 @@ def strangerprofile():
 def movie():
     movie_id = request.args.get('movie_id')
     bookmarked=False
-    if movie_id in functions.get_bookmarks(str(session['id'])):
-            bookmarked=True
+    try:
+        if movie_id in functions.get_bookmarks(str(session['id'])):
+                bookmarked=True
+    except:
+        bookmarked=False
     list=functions.movie_details_full(movie_id)
-    return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2), bookmarked=bookmarked)
+    return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=bookmarked)
 
 @app.route('/add_bookmark',methods=['POST','GET'])
 def add_bookmark():
@@ -84,7 +89,7 @@ def add_bookmark():
         movie_id=request.form['movie_id']
         functions.add_bookmark(str(session['id']),movie_id)
         list=functions.movie_details_full(movie_id)
-        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2), bookmarked=True)
+        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=True)
 
 @app.route('/bookmarks')
 def bookmarks():
@@ -119,11 +124,12 @@ def profile():
         email=request.form['Email']
         functions.update_user_email(str(session['id']),email)
         password=request.form['Password']
-        functions.update_user_password(str(session['id']),password)
+        functions.update_user_password(str(session['id']),hashlib.sha256(password.encode()))
         user_name=user_details[4]
         about=request.form['About']
         functions.update_about(str(session['id']),about)
-        return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password,about=about,review=functions.get_reviews_by_user(session['id']))
+        password = hashlib.sha256(password.encode())
+        return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password.hexdigest(),about=about,review=functions.get_reviews_by_user(session['id']))
     
 @app.route('/add_review',methods=['POST','GET'])
 def add_reveiw():
@@ -135,9 +141,9 @@ def add_reveiw():
         if movie_id in functions.get_bookmarks(str(session['id'])):
             bookmarked=True
         functions.add_review(movie_id,str(session['id']),title,review)
-        list=functions.movie_details_full(movie_id)
-        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[15],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[-4])/2), bookmarked=bookmarked)
-
+        # list=functions.movie_details_full(movie_id)
+        # return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=bookmarked)
+        return redirect(f'\movie?movie_id={movie_id}', code=302)
 
 # @app.route('/modify_profile')
 # def modify_profile():
@@ -167,13 +173,15 @@ def new_user():
         password=request.form['Password']
         bool=functions.exists_user(user_name)
         if (bool):
-            return render_template('index.html',link=functions.movies_by_popularity(10))
+            flash('Username already exists !')
+            return render_template('signup.html')
         else:
+            password = hashlib.sha256(password.encode())
             functions.add_user(email,user_name,password,name)
             session['loggedin'] = True
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute('SELECT * FROM Users WHERE User_Name = %s AND Password = %s', (user_name, password))
+            cursor.execute('SELECT * FROM Users WHERE User_Name = %s AND Password = %s', (user_name, password.hexdigest()))
             # Fetch one record and return result
             account = cursor.fetchone()
             session['id'] = account['User_ID'] # TODO
@@ -184,8 +192,90 @@ def new_user():
 def community():
     return render_template("community.html")
 
+@app.route('/likeunlike',methods=['POST','GET'])
+def likeunlike():
+    if request.method=='POST':
+        userid = request.form['userid']
+        movieid = request.form['movieid']
+        postid = request.form['postid'] 
+        type = request.form['type']
+        likes=-1
+        dislikes=-1
+        if(type=="1"):
+            (likes,dislikes)=functions.add_like_review(str(postid), str(userid), str(movieid))
+        else:
+            (likes,dislikes)=functions.add_unlike_review(str(postid), str(userid), str(movieid))
+        # return redirect(f'\movie?movie_id={movie_id}', code=302)
+    return jsonify({"likes":likes,"unlikes":dislikes})
+    # return jsonify('success')
+    # try:
+    #     # conn = mysql.connect()
+    #     # cursor = conn.cursor(pymysql.cursors.DictCursor)
+    #     if request.method == 'POST':
+    #         movieid = request.form['movieid']
+    #         postid = request.form['postid'] 
+    #         type = request.form['type']
+    #         #print(postid)
+    #         #print(type)
+    #         cursor.execute("SELECT COUNT(*) AS cntpost FROM like_unlike WHERE postid=%s AND userid=%s", (postid, userid))
+    #         rscount = cursor.fetchone()
+    #         count = rscount['cntpost']
+    #         #print(count)
+ 
+    #         if count == 0:
+    #             sql = "INSERT INTO like_unlike(userid,postid,type) VALUES(%s, %s, %s)"
+    #             data = (userid, postid, type)
+    #             conn = mysql.connect()
+    #             cursor = conn.cursor()
+    #             cursor.execute(sql, data)
+    #             conn.commit()
+ 
+    #             cur = conn.cursor(pymysql.cursors.DictCursor)
+    #             cur.execute("SELECT COUNT(*) AS cntLike FROM like_unlike WHERE type=1 AND postid=%s",postid)
+    #             rscounttotal = cur.fetchone()
+    #             countlike = rscounttotal['cntLike']
+    #             #print(countlike)
+ 
+    #             cur = conn.cursor(pymysql.cursors.DictCursor)
+    #             cur.execute("SELECT COUNT(*) AS cntUnlike FROM like_unlike WHERE type=0 AND postid=%s",postid)
+    #             rscounttotalunlike = cur.fetchone()
+    #             countUnlike = rscounttotalunlike['cntUnlike']
+    #             #print(countUnlike)
+ 
+    #             totallikeajax = countlike
+    #             totalunlikeajax = countUnlike
+    #         else:
+    #             sql = "UPDATE like_unlike SET type=%s WHERE userid=%s AND postid=%s"
+    #             data = (type, userid, postid)
+    #             conn = mysql.connect()
+    #             cursor = conn.cursor()
+    #             cursor.execute(sql, data)
+    #             conn.commit()
+ 
+    #             cur = conn.cursor(pymysql.cursors.DictCursor)
+    #             cur.execute("SELECT COUNT(*) AS cntLike FROM like_unlike WHERE type=1 AND postid=%s",postid)
+    #             rscounttotal = cur.fetchone()
+    #             countlike = rscounttotal['cntLike']
+    #             #print(countlike)
+ 
+    #             cur = conn.cursor(pymysql.cursors.DictCursor)
+    #             cur.execute("SELECT COUNT(*) AS cntUnlike FROM like_unlike WHERE type=0 AND postid=%s",postid)
+    #             rscounttotalunlike = cur.fetchone()
+    #             countUnlike = rscounttotalunlike['cntUnlike']
+    #             #print(countUnlike)
+                 
+    #             totallikeajax = countlike
+    #             totalunlikeajax = countUnlike
+    #     return jsonify({"likes":totallikeajax,"unlikes":totalunlikeajax})
+    # except Exception as e:
+    #     print(e)
+    # finally:
+        # cursor.close() 
+        # conn.close()
+
+
 if __name__=="__main__":
-    app.run(host="10.17.5.13", port=6000, debug=True)
+    app.run(host="10.17.5.13", port=8080, debug=True)
 
 # from flask import Flask, request, session, redirect, url_for, render_template, flash
 # from flaskext.mysql import MySQL
@@ -264,10 +354,24 @@ if __name__=="__main__":
 # def movie():
 #     movie_id = request.args.get('movie_id')
 #     bookmarked=False
-#     if movie_id in functions.get_bookmarks(str(session['id'])):
-#             bookmarked=True
+#     try:
+#         if movie_id in functions.get_bookmarks(str(session['id'])):
+#                 bookmarked=True
+#     except:
+#         bookmarked=False
 #     list=functions.movie_details_full(movie_id) 
 #     return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=bookmarked)
+
+# movie_id1=1
+
+# @app.route('/movie1')
+# def movie1():
+#     bookmarked=False
+#     if movie_id1 in functions.get_bookmarks(str(session['id'])):
+#             bookmarked=True
+#     list=functions.movie_details_full(movie_id1) 
+#     return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=bookmarked)
+
 
 # @app.route('/add_bookmark',methods=['POST','GET'])
 # def add_bookmark():
@@ -326,9 +430,9 @@ if __name__=="__main__":
 #         if movie_id in functions.get_bookmarks(str(session['id'])):
 #             bookmarked=True
 #         functions.add_review(movie_id,str(session['id']),title,review)
-#         list=functions.movie_details_full(movie_id)
-#         return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=bookmarked)
-
+#         # list=functions.movie_details_full(movie_id)
+#         # return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[-7],popularity=list[13],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=bookmarked)
+#         return redirect("/movie1", code=302)
 
 # # @app.route('/modify_profile')
 # # def modify_profile():

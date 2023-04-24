@@ -49,18 +49,18 @@
 .bookmark {
     left:10%;
     cursor: pointer;
-    border: 0;
     padding: 5px;
     background-color: var(--color-gainsboro-100);
     position: relative;
     border-radius: 25px;
-    width: 11.88rem;
+    width: 13rem;
     height: 2.69rem;
     vertical-align: center;
     font-size: 1.38rem;
     font-weight: 600;
     font-family: var(--font-roboto), sans-serif;
     color: black;
+    border: 2px solid white;
 }
 
 .stars {

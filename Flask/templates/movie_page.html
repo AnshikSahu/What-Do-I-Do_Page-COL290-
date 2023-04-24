@@ -3,41 +3,43 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/moviepage2.css')}}">
 <!-- For like dislike button -->
 <script type='text/javascript'>
-  $(document).ready(function(){
-      $(".like, .unlike").click(function(){
-          var id = this.id;   
-          var split_id = id.split("_");
-          var text = split_id[0];
-          var postid = split_id[1]; 
-          var type = 0;
-          if(text == "like"){
-              type = 1;
-          }else{
-              type = 0;
+  $(document).ready(function () {
+    $(".like, .unlike").click(function () {
+      var id = this.id;
+      var split_id = id.split("_");
+      var text = split_id[0];
+      var postid = split_id[1];
+      var movieid = split_id[2];
+      var userid = split_id[3];
+      var type = 0;
+      if (text == "like") {
+        type = 1;
+      } else {
+        type = 0;
+      }
+      $.ajax({
+        url: '/likeunlike',
+        type: 'post',
+        data: { movieid: movieid, postid: postid,userid:userid, type: type },
+        dataType: 'json',
+        success: function (data) {
+          var likes = data['likes'];
+          var unlikes = data['unlikes'];
+          $("#likes_" + postid).text(likes);
+          $("#unlikes_" + postid).text(unlikes);
+          if (type == 1) {
+            $("#like_" + postid).css("border", "2px solid white");
+            $("#unlike_" + postid).css("color", "lightseagreen");
           }
-          $.ajax({
-              url: '/likeunlike',
-              type: 'post',
-              data: {postid:postid,type:type},
-              dataType: 'json',
-              success: function(data){
-                  var likes = data['likes'];
-                  var unlikes = data['unlikes'];
-                  $("#likes_"+postid).text(likes);       
-                  $("#unlikes_"+postid).text(unlikes);   
-                  if(type == 1){
-                      $("#like_"+postid).css("color","#ffa449");
-                      $("#unlike_"+postid).css("color","lightseagreen");
-                  }
-                  if(type == 0){
-                      $("#unlike_"+postid).css("color","#ffa449");
-                      $("#like_"+postid).css("color","lightseagreen");
-                  }
-              }
-          });
+          if (type == 0) {
+            $("#unlike_" + postid).css("border", "2px solid white");
+            $("#like_" + postid).css("color", "lightseagreen");
+          }
+        }
       });
+    });
   });
-  </script>
+</script>
 {% endblock %}
 {% block content %}
 <div class="movie-page">
@@ -72,7 +74,7 @@
                   <div class="stars">
 
                     <div class="row">
-                      {% for i in range(stars) %}
+                      {% for i in range(stars+1) %}
                       <div class="col">
                         <img src="{{url_for('static',filename='css/public/star.svg')}}" alt="">
                       </div>
@@ -89,8 +91,8 @@
         <form action="add_bookmark" method="POST">
           <input type="text" id=movie_id name=movie_id value="{{movie_id}}" style="display:none;">
           {% if bookmarked %}
-          <button class="btn btn-light bookmark" type="submit" disabled title="Already bookmarked!">
-            BOOKMARK
+          <button class="btn btn-dark bookmark" type="submit" disabled title="Already bookmarked!">
+            <span style="color:white">BOOKMARKED!</span>
             <img class="id-105-icon" alt="" src="{{url_for('static',filename='css/public/id-105.svg')}}" />
           </button>
           {% else %}
@@ -153,29 +155,31 @@
         </div>
         <div class="col-3">
           <span class="username">{{i[7]}}</span>
-          <span class="date" id="date">ADD DATE HERE</span> 
+          <span class="date" id="date">ADD DATE HERE</span>
         </div>
         <div class="col-3">
           <!-- <form action="" method="post"> -->
-            <!-- <button type="submit"  style="background:transparent;color:white; border:none;" id="likebtn{{i[0]}}"
+          <!-- <button type="submit"  style="background:transparent;color:white; border:none;" id="likebtn{{i[0]}}"
             onclick="document.getElementById('likenum{{i[0]}}').innerHTML=1;
             document.getElementById('likebtn{{i[0]}}').style='border:0.1px solid white; background-color:black; color:white; padding:2px;'">
               <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" id="likeimg{{i[0]}}" />
               <label class="div1" id="likenum{{i[0]}}" disabled>{{i[4]}}</label>
             </button> -->
           <!-- </form> -->
-          <input type="button" value="Like" id="like_{{i[0]}}" class="like"  /> (<span id="likes_{{i[0]}}">{{i[4]}}</span>) 
-          
+          <input type="button" value="Like" id="like_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="like" /> (<span
+            id="likes_{{i[0]}}">{{i[4]}}</span>)
+
         </div>
-        <!-- <div class="col-3">
-          <form action="" method="post">
+        <div class="col-3">
+          <input type="button" value="Unlike" id="unlike_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="unlike" /> (<span id="unlikes_{{i[0]}}">{{i[5]}}</span>)
+
+          <!--<form action="" method="post">
             <button type="submit"  style="background:transparent;color:white; border:none;" id="dislikebtn">
               <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/dislike.svg')}}" />
               <label class="div1" id="dislikenum" disabled>{{i[5]}}</label>
             </button>
-          </form>
-        </div> -->
-        <input type="button" value="Unlike" id="unlike_{{i[0]}}" class="unlike" /> (<span id="unlikes_{{i[0]}}">{{i[5]}}</span>)
+          </form>-->
+        </div>
       </div>
       <br>
       <div class="review-content">{{i[3]}}

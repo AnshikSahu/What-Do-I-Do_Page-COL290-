@@ -568,6 +568,7 @@
   
   
   .filter_overlay {
+    z-index:20;
     display: none;
     position: absolute;
     top: 40px;
@@ -578,7 +579,6 @@
     border: none;
     font-family: var(--font-special-elite);
   }
-  
   
   /* Navbar */
   nav{

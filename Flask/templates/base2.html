@@ -143,134 +143,124 @@
     {% endblock %}
   </div>
   <script>new bootstrap.Collapse(document.querySelector('#navbarSupportedContent'));</script>
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script> -->
-  <div id="filter_modal" class="filter_overlay">
+  <form id="filter_modal" class="filter_overlay">
     <div class="frame-group">
-      <button class="done-wrapper">
-        <div class="done">DONE</div>
-      </button>
-      <div class="genres-wrapper"><b class="genres">Genres</b></div>
+      <div class="genres-wrapper">
+        <b class="genres">Genres</b>
+      </div>
+
+      <div class="adventure">Adventure</div><input class="rectangle-input" type="checkbox" name = "genre" value="adventure" />
+      <div class="action">Action</div><input class="frame-child21" type="checkbox" name = "genre" value="action" />
+      <div class="comedy">Comedy</div><input class="frame-child24" type="checkbox" name = "genre" value="comedy" />
+      <div class="crime">Crime</div><input class="frame-child27" type="checkbox" name = "genre" value="crime" />
+      <div class="drama">Drama</div><input class="frame-child28" type="checkbox" name = "genre" value="drama" />
+      <div class="fantasy">Fantasy</div><input class="frame-child29" type="checkbox" name = "genre" value="fantasy" />
+      <div class="horror">Horror</div><input class="frame-child30" type="checkbox" name = "genre" value="horror" />
+      <div class="mystery">Mystery</div><input class="frame-child31" type="checkbox" name = "genre" value="mystery" />
+      <div class="omance">Romance</div><input class="frame-child32" type="checkbox" name = "genre" value="romance" />
+      <div class="suspense">Suspense</div><input class="frame-child33" type="checkbox" name = "genre" value="suspense" />
+      <div class="sci-fi">Sci-Fi</div><input class="frame-child34" type="checkbox" name = "genre" value="sci-fi" />
+      <div class="thriller">Thriller</div><input class="frame-child35" type="checkbox" name = "genre" value="thriller" />
+
+
       <div class="rated-more-than-wrapper">
         <b class="rated-more-than">Rated more than</b>
       </div>
-      <div class="language-wrapper">
-        <b class="rated-more-than">Language</b>
-      </div>
-      <div class="released-after-wrapper">
-        <b class="rated-more-than">Released after</b>
-      </div>
-      <div class="adventure">Adventure</div>
-      <div class="english">English</div>
-      <div class="hindi">Hindi</div>
       <div class="parent">
         <div class="div">0</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="group">
-        <div class="div">1950</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="container1">
-        <div class="div">1970</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="frame-div">
-        <div class="div">1980</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="parent1">
-        <div class="div">1990</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="parent2">
-        <div class="div">2000</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="parent3">
-        <div class="div">2010</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="parent4">
-        <div class="div">2020</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="parent5">
-        <div class="div8">1960</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="parent6">
-        <div class="div">5</div>
-        <input class="ellipse-input" type="checkbox" />
+        <input class="ellipse-input" type="radio" />
       </div>
       <div class="parent7">
         <div class="div">1</div>
-        <input class="ellipse-input" type="checkbox" />
-      </div>
-      <div class="parent8">
-        <div class="div">6</div>
-        <input class="ellipse-input" type="checkbox" />
+        <input class="ellipse-input" type="radio" />
       </div>
       <div class="parent9">
         <div class="div12">2</div>
-        <input class="frame-child13" type="checkbox" />
-      </div>
-      <div class="parent10">
-        <div class="div12">7</div>
-        <input class="frame-child13" type="checkbox" />
+        <input class="frame-child13" type="radio" />
       </div>
       <div class="parent11">
         <div class="div14">3</div>
-        <input class="frame-child13" type="checkbox" />
-      </div>
-      <div class="parent12">
-        <div class="div14">8</div>
-        <input class="frame-child13" type="checkbox" />
+        <input class="frame-child13" type="radio" />
       </div>
       <div class="parent13">
         <div class="div14">4</div>
-        <input class="frame-child13" type="checkbox" />
+        <input class="frame-child13" type="radio" />
+      </div>
+      <div class="parent6">
+        <div class="div">5</div>
+        <input class="ellipse-input" type="radio" />
+      </div>
+      <div class="parent8">
+        <div class="div">6</div>
+        <input class="ellipse-input" type="radio" />
+      </div>
+      <div class="parent10">
+        <div class="div12">7</div>
+        <input class="frame-child13" type="radio" />
+      </div>
+      <div class="parent12">
+        <div class="div14">8</div>
+        <input class="frame-child13" type="radio" />
       </div>
       <div class="parent14">
         <div class="div14">9</div>
-        <input class="frame-child13" type="checkbox" />
+        <input class="frame-child13" type="radio" />
       </div>
-      <div class="action">Action</div>
-      <div class="german">German</div>
-      <div class="chinese">Chinese</div>
-      <div class="comedy">Comedy</div>
-      <div class="japanese">Japanese</div>
-      <div class="korean">Korean</div>
-      <div class="crime">Crime</div>
-      <div class="drama">Drama</div>
-      <div class="fantasy">Fantasy</div>
-      <div class="horror">Horror</div>
-      <div class="mystery">Mystery</div>
-      <div class="omance">Romance</div>
-      <div class="suspense">Suspense</div>
-      <div class="sci-fi">Sci-Fi</div>
-      <div class="thriller">Thriller</div>
-      <input class="rectangle-input" type="checkbox" /><input class="frame-child19" type="checkbox" /><input
-        class="frame-child20" type="checkbox" /><input class="frame-child21" type="checkbox" /><input
-        class="frame-child22" type="checkbox" /><input class="frame-child23" type="checkbox" /><input
-        class="frame-child24" type="checkbox" /><input class="frame-child25" type="checkbox" /><input
-        class="frame-child26" type="checkbox" /><input class="frame-child27" type="checkbox" /><input
-        class="frame-child28" type="checkbox" /><input class="frame-child29" type="checkbox" /><input
-        class="frame-child30" type="checkbox" /><input class="frame-child31" type="checkbox" /><input
-        class="frame-child32" type="checkbox" /><input class="frame-child33" type="checkbox" /><input
-        class="frame-child34" type="checkbox" /><input class="frame-child35" type="checkbox" />
+
+      <div class="language-wrapper">
+        <b class="rated-more-than">Language</b>
+      </div>
+      <div class="english">English</div><input class="frame-child19" type="checkbox" name = "language" value="en" />
+      <div class="hindi">Hindi</div><input class="frame-child20" type="checkbox" name = "language" value="hi" />
+      <div class="german">French</div><input class="frame-child22" type="checkbox" name = "language" value="fr" />
+      <div class="chinese">Chinese</div><input class="frame-child23" type="checkbox" name = "language" value="zh"/>
+      <div class="japanese">Swedish</div><input class="frame-child25" type="checkbox" name = "language" value="sv"/>
+      <div class="korean">Korean</div><input class="frame-child26" type="checkbox" name = "language" value="ko"/>
+      
+      <div class="released-after-wrapper">
+        <b class="rated-more-than">Released after</b>
+      </div>
+      <div class="group">
+        <div class="div">1940</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 1940/>
+      </div>
+      <div class="parent5">
+        <div class="div8">1950</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 1950/>
+      </div>
+      <div class="container1">
+        <div class="div">1960</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 1960/>
+      </div>
+      <div class="frame-div">
+        <div class="div">1970</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 1970/>
+      </div>
+      <div class="parent1">
+        <div class="div">1980</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 1980/>
+      </div>
+      <div class="parent2">
+        <div class="div">1990</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 1990/>
+      </div>
+      <div class="parent3">
+        <div class="div">2000</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 2000/>
+      </div>
+      <div class="parent4">
+        <div class="div">2010</div>
+        <input class="ellipse-input" type="radio" name = "released_after" value = 2010/>
+      </div>    
       <div class="rectangle-div"></div>
       <div class="frame-child36"></div>
       <div class="frame-child37"></div>
+      
+      <button class="done-wrapper" type=submit>
+        <div class="done">DONE</div>
+      </button>
     </div>
-  </div>
+  </form>
   <script>
     var modal = document.getElementById("filter_modal");
 
