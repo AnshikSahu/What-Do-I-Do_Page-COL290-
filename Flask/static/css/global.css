@@ -6,10 +6,7 @@ body {
   background-size: cover;
   background-attachment:fixed;
 }
-@font-face {
-  font-family: 'MyCustomFont';
-  src: url('mycustomfont.woff') format('woff');
-}
+
 :root {
   /* fonts */
   --font-sansation-light: "Sansation Light";
@@ -46,4 +43,9 @@ body {
   --br-xl: 20px;
   --br-3xl: 22px;
   --br-8xs: 5px;
+}
+
+@font-face {
+  font-family: 'var(--font-bright-sunshine-demo)';
+  src: url('../../../fonts/bright-sunshine-font/BrightSunshineDemo-7BvgD.ttf') format('ttf');
 }

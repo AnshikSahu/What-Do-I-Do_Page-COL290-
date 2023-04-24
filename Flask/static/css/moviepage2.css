@@ -4,7 +4,6 @@
 
 .movie-page {
     position: relative;
-    height: 500vh;
     background-attachment: fixed;
     color: white;
     top: 2rem;
@@ -119,6 +118,7 @@
     position: relative;
     top: 5rem;
     left: 4rem;
+    margin-bottom: 20px;
 }
 
 .trending-item {

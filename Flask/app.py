@@ -173,7 +173,7 @@ def new_user():
         password=request.form['Password']
         bool=functions.exists_user(user_name)
         if (bool):
-            flash('Username already exists !')
+            # flash('Username already exists !')
             return render_template('signup.html')
         else:
             password = hashlib.sha256(password.encode())

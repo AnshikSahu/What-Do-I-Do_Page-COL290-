@@ -20,7 +20,7 @@ def movie_details_full(Movie_ID):
 
 def movies_with_filters_and_search(number_of_movies, genre,released_after,rated_more_than,language,search):
 #      with engine.connect() as conn:
-          rows =conn.execute("SELECT Movie_ID,Posters FROM Mov WHERE Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \""+search+"%\" LIMIT "+str(number_of_movies) )
+          rows =conn.execute("SELECT Movie_ID,Posters FROM Mov WHERE Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \""+search+"%\" AND Genres=\""+genre+"\" AND Language=\""+language+"\" LIMIT "+str(number_of_movies) )
           rows=conn.fetchall()
           return rows
     
