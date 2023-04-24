@@ -13,7 +13,7 @@
 
 .poster {
     position: relative;
-    left: 6rem;
+    left: 17%;
     /* top: 6.25rem;
     left: 9.31rem; */
     border-radius: var(--br-xl);
@@ -23,7 +23,7 @@
 }
 
 .movie-name {
-    left:2rem;
+    left:10%;
     margin: 0;
     position: relative;
     /* top: 7.44rem;
@@ -35,19 +35,19 @@
 }
 
 .movie-info {
-    left:2rem;
+    left:10%;
     position: relative;
     font-size: var(--font-size-5xl);
     font-weight: 300;
     font-family: var(--font-sansation-light);
     display: inline-block;
-    width: 40.31rem;
+    width: 80%;
     height: 13.69rem;
 
 }
 
 .bookmark {
-    left:2rem;
+    left:10%;
     cursor: pointer;
     border: 0;
     padding: 5px;
@@ -64,7 +64,7 @@
 }
 
 .stars {
-    left:2rem;
+    left:10%;
     margin: 10px 0;
 }
 

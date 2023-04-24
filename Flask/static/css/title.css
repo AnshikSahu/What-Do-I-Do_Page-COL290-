@@ -55,7 +55,7 @@
 }
 
 /* Styles for small screens */
-@media screen and (max-width: 967px) {
+@media screen and (max-width: 1400px) {
 
   .title{
     display:none;

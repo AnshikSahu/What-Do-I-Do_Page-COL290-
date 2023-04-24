@@ -10,9 +10,9 @@ Home
 
 <div class="mainpage-without-login1">
   <div class="movie-homepage-1">
-    <div class="row">
-      <div class="display col-md-6">
+      <div class="display ">
         <div class="frame"></div>
+        <div class ="click">
         <button class="display-inner">
           <img class="frame-child" alt="" src="{{url_for('static',filename='css/public/ellipse-5.svg')}}" />
         </button>
@@ -28,8 +28,9 @@ Home
         <button class="display-inner2">
           <img class="frame-child" alt="" src="{{url_for('static',filename='css/public/ellipse-5.svg')}}" />
         </button>
+        </div>
       </div>
-      <div class="community1 col-md-4">
+      <div class="community1">
         <div class="community-child"></div>
         <div class="frame-parent" id="frameContainer">
           <button class="wp5558867-aesthetic-profile-pi-wrapper">
@@ -55,21 +56,28 @@ Home
             </button>
         </div>
       </div>
-    </div>
-    <div class="trending col-md-10">
-      <button class="trending1">Trending</button>
-      <div class="trending-child"></div>
-      <div class="row">
-        {% for i in range(5) %}
-        <div class="col">
-          <a href="{{url_for('movie', movie_id=link[i][0])}}" class="trending-item"
-            style="background-image:url({{link[i][1]}})"></a>
-        </div>
-        {% endfor %}
+    
+    <button class="trending1">Trending</button>
+    <div class="trending-child"></div>
+    <div class="trending">
+      
+
+          <a href="{{url_for('movie', movie_id=link[0][0])}}" class="trending-item trending-item1"
+            style="background-image:url({{link[0][1]}})"></a>
+            <a href="{{url_for('movie', movie_id=link[1][0])}}" class="trending-item trending-item2"
+            style="background-image:url({{link[1][1]}})"></a>
+            <a href="{{url_for('movie', movie_id=link[2][0])}}" class="trending-item trending-item3"
+            style="background-image:url({{link[2][1]}})"></a>
+            <a href="{{url_for('movie', movie_id=link[3][0])}}" class="trending-item trending-item4"
+            style="background-image:url({{link[3][1]}})"></a>
+            <a href="{{url_for('movie', movie_id=link[4][0])}}" class="trending-item trending-item5"
+            style="background-image:url({{link[4][1]}})"></a>
+            <button class="arrow">
         <button class="icon-color-wrapper">
           <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
-        </button>
-      </div>
+      </button>
+      </button>
+      
     </div>
   </div>
 </div>

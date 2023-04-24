@@ -6,7 +6,10 @@ body {
   background-size: cover;
   background-attachment:fixed;
 }
-
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('mycustomfont.woff') format('woff');
+}
 :root {
   /* fonts */
   --font-sansation-light: "Sansation Light";

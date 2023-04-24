@@ -1,6 +1,43 @@
 {% extends 'base.html' %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/moviepage2.css')}}">
+<!-- For like dislike button -->
+<script type='text/javascript'>
+  $(document).ready(function(){
+      $(".like, .unlike").click(function(){
+          var id = this.id;   
+          var split_id = id.split("_");
+          var text = split_id[0];
+          var postid = split_id[1]; 
+          var type = 0;
+          if(text == "like"){
+              type = 1;
+          }else{
+              type = 0;
+          }
+          $.ajax({
+              url: '/likeunlike',
+              type: 'post',
+              data: {postid:postid,type:type},
+              dataType: 'json',
+              success: function(data){
+                  var likes = data['likes'];
+                  var unlikes = data['unlikes'];
+                  $("#likes_"+postid).text(likes);       
+                  $("#unlikes_"+postid).text(unlikes);   
+                  if(type == 1){
+                      $("#like_"+postid).css("color","#ffa449");
+                      $("#unlike_"+postid).css("color","lightseagreen");
+                  }
+                  if(type == 0){
+                      $("#unlike_"+postid).css("color","#ffa449");
+                      $("#like_"+postid).css("color","lightseagreen");
+                  }
+              }
+          });
+      });
+  });
+  </script>
 {% endblock %}
 {% block content %}
 <div class="movie-page">
@@ -48,15 +85,6 @@
           </div>
         </div>
         <div class="movie-info">{{overview}}
-          <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
-          erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
-          gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
-          Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
-          tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
-          lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
-          imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
-          arcu ac tortor. -->
         </div>
         <form action="add_bookmark" method="POST">
           <input type="text" id=movie_id name=movie_id value="{{movie_id}}" style="display:none;">
@@ -125,40 +153,32 @@
         </div>
         <div class="col-3">
           <span class="username">{{i[7]}}</span>
-          <span class="date" id="date">Apr 08, 2023</span>
+          <span class="date" id="date">ADD DATE HERE</span> 
         </div>
         <div class="col-3">
           <!-- <form action="" method="post"> -->
-            <button type="submit"  style="background:transparent;color:white; border:none;" id="likebtn{{i[0]}}"
+            <!-- <button type="submit"  style="background:transparent;color:white; border:none;" id="likebtn{{i[0]}}"
             onclick="document.getElementById('likenum{{i[0]}}').innerHTML=1;
             document.getElementById('likebtn{{i[0]}}').style='border:0.1px solid white; background-color:black; color:white; padding:2px;'">
               <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" id="likeimg{{i[0]}}" />
               <label class="div1" id="likenum{{i[0]}}" disabled>{{i[4]}}</label>
-            </button>
+            </button> -->
           <!-- </form> -->
+          <input type="button" value="Like" id="like_{{i[0]}}" class="like"  /> (<span id="likes_{{i[0]}}">{{i[4]}}</span>) 
+          
         </div>
-        <div class="col-3">
+        <!-- <div class="col-3">
           <form action="" method="post">
             <button type="submit"  style="background:transparent;color:white; border:none;" id="dislikebtn">
               <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/dislike.svg')}}" />
               <label class="div1" id="dislikenum" disabled>{{i[5]}}</label>
             </button>
           </form>
-        </div>
+        </div> -->
+        <input type="button" value="Unlike" id="unlike_{{i[0]}}" class="unlike" /> (<span id="unlikes_{{i[0]}}">{{i[5]}}</span>)
       </div>
       <br>
       <div class="review-content">{{i[3]}}
-
-        <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas
-        erat imperdiet sed euismod. Id volutpat lacus laoreet non curabitur
-        gravida arcu ac tortor. Sit amet porttitor eget dolor morbi non arcu.
-        Interdum velit laoreet id donec ultrices tincidunt. Sed turpis
-        tincidunt id aliquet. Egestas erat imperdiet sed euismod. Id volutpat
-        lacus laoreet non curabitur gravida arcu ac tortor. Egestas erat
-        imperdiet sed euismod. Id volutpat lacus laoreet non curabitur gravida
-        arcu ac tortor. -->
-
       </div>
     </div>
     <br>

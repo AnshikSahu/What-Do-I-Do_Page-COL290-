@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import date
 
 mydb= mysql.connector.connect(
         host= "localhost",
@@ -8,27 +9,27 @@ mydb= mysql.connector.connect(
         database="photons"
         )
 conn=mydb.cursor ()
-
+ 
 def movie_details_full(Movie_ID):
 #     with engine.connect() as conn:
          print(Movie_ID)
-         conn.execute("SELECT * FROM Movies WHERE Movie_ID ="+str(Movie_ID))
+         conn.execute("SELECT * FROM Mov WHERE Movie_ID ="+str(Movie_ID))
          row=conn.fetchall()
          return list(row[0])
     
 
 def movies_with_filters_and_search(number_of_movies, genre,released_after,rated_more_than,language,search):
 #      with engine.connect() as conn:
-          rows =conn.execute("SELECT Movie_ID,Posters FROM Movies WHERE Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \""+search+"%\" LIMIT "+str(number_of_movies) )
+          rows =conn.execute("SELECT Movie_ID,Posters FROM Mov WHERE Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \""+search+"%\" LIMIT "+str(number_of_movies) )
           rows=conn.fetchall()
           return rows
     
 def movies_by_popularity(number_of_movies):
-          conn.execute(("SELECT Movie_ID,Posters FROM Movies ORDER BY Vote_Count DESC LIMIT "+str(number_of_movies)))
+          conn.execute(("SELECT Movie_ID,Posters FROM Mov ORDER BY Vote_Count DESC LIMIT "+str(number_of_movies)))
           rows=conn.fetchall()
           return rows
 def get_bookmark_posters(movie_id):
-          conn.execute("SELECT Movie_ID,Posters FROM Movies where Movie_ID="+str(movie_id))
+          conn.execute("SELECT Movie_ID,Posters FROM Mov where Movie_ID="+str(movie_id))
           rows=conn.fetchall()
           return rows        
 
@@ -39,10 +40,10 @@ def add_review(movie_id,user_id,title,review):
         conn.execute(("SELECT Review_ID FROM Reviews WHERE Movie_ID = \""+movie_id+"\" AND User_ID = \""+user_id+"\" AND Review = \""+review+"\""))
         row=conn.fetchall()
         row=str(row[0][0])
-        conn.execute(("select Reviews from Movies where Movie_ID="+movie_id+""))
+        conn.execute(("select Reviews from Mov where Movie_ID="+movie_id+""))
         temp=conn.fetchall()
         temp=str(list(temp)[0][0])
-        conn.execute(("UPDATE Movies SET Reviews = \""+ temp+"|"+row +"\" WHERE Movie_ID ="+movie_id))
+        conn.execute(("UPDATE Mov SET Reviews = \""+ temp+"|"+row +"\" WHERE Movie_ID ="+movie_id))
         conn.execute("commit")
         conn.execute(("select Reviews from Users where User_ID="+user_id))
         temp=conn.fetchall()
@@ -132,6 +133,8 @@ def get_bookmarks(userid):
         temp=conn.fetchall()[0][0]
         l=temp.split("|")
         return l
+
+        
 
 
 # def find_user(user_name):
@@ -354,11 +357,12 @@ def get_bookmarks(userid):
 # #         conn.execute(text("UPDATE users SET about = %s WHERE id = %s", [about,user_id]))
 # #         ()
 
-# conn.execute(("DROP TABLE Users"))
-# conn.execute("commit")
+#
+# conn.execute(("DROP TABLE Reviews"))
+ #conn.execute("commit")
 # conn.execute(("CREATE TABLE Users (User_ID int AUTO_INCREMENT,Reviews varchar(5000) default \"\",Email varchar(200),Mobile varchar(100),User_Name varchar(100),Password varchar(100),Name varchar(200),Interactions varchar(1000) default \"\",Bookmarks varchar(1000) default \"\",Friends varchar(3000) default \"\",About varchar(2000),PRIMARY KEY(User_ID))"))
 # conn.execute("commit")
-#conn.execute(("CREATE TABLE Reviews (Review_ID int AUTO_INCREMENT,Movie_ID varchar(100),User_ID varchar(100),Review varchar(10000),Likes varchar(100) default \"0\",Dislikes varchar(100) default \"0\",PRIMARY KEY(Review_ID))"))
+#conn.execute(("CREATE TABLE Reviews (Review_ID int AUTO_INCREMENT,Movie_ID varchar(100),User_ID varchar(100),Review varchar(10000),Likes varchar(100) default \"0\",Dislikes varchar(100) default \"0\",Date varchar(100) default=\"25/04/2023\",PRIMARY KEY(Review_ID))"))
 # conn.execute("alter table Reviews add Title mediumtext")
 # # with engine.connect() as conn:
 # #         conn.execute(text("INSERT INTO Users (Email,Mobile,User_Name,Password,Name) VALUES (\"cs1210571@cse.iitd.ac.in\",\"9778521795\",\"Pumwakintolly\",\"atul\",\"Adithya Bijoy\")"))
