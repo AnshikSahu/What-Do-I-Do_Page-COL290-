@@ -44,11 +44,11 @@
         </a>
 
         <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+        <!-- <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
           data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
           aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
-        </button>
+        </button> -->
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -143,7 +143,7 @@
     {% endblock %}
   </div>
   <script>new bootstrap.Collapse(document.querySelector('#navbarSupportedContent'));</script>
-  <form id="filter_modal" class="filter_overlay">
+  <form id="filter_modal" class="filter_overlay" action=/search_filters method=POST>
     <div class="frame-group">
       <div class="genres-wrapper">
         <b class="genres">Genres</b>
@@ -168,43 +168,43 @@
       </div>
       <div class="parent">
         <div class="div">0</div>
-        <input class="ellipse-input" type="radio" name = rating value = 0 />
+        <input class="ellipse-input" type="radio" name = rating value = "0" />
       </div>
       <div class="parent7">
         <div class="div">1</div>
-        <input class="ellipse-input" type="radio" name = rating value = 1 />
+        <input class="ellipse-input" type="radio" name = rating value = "1" />
       </div>
       <div class="parent9">
         <div class="div12">2</div>
-        <input class="frame-child13" type="radio" name = rating value = 2 />
+        <input class="frame-child13" type="radio" name = rating value = "2" />
       </div>
       <div class="parent11">
         <div class="div14">3</div>
-        <input class="frame-child13" type="radio" name = rating value = 3 />
+        <input class="frame-child13" type="radio" name = rating value = "3" />
       </div>
       <div class="parent13">
         <div class="div14">4</div>
-        <input class="frame-child13" type="radio" name = rating value = 4 />
+        <input class="frame-child13" type="radio" name = rating value = "4" />
       </div>
       <div class="parent6">
         <div class="div">5</div>
-        <input class="ellipse-input" type="radio" name = rating value = 5 />
+        <input class="ellipse-input" type="radio" name = rating value = "5" />
       </div>
       <div class="parent8">
         <div class="div">6</div>
-        <input class="ellipse-input" type="radio" name = rating value = 6 />
+        <input class="ellipse-input" type="radio" name = rating value = "6" />
       </div>
       <div class="parent10">
         <div class="div12">7</div>
-        <input class="frame-child13" type="radio" name = rating value = 7 />
+        <input class="frame-child13" type="radio" name = rating value = "7" />
       </div>
       <div class="parent12">
         <div class="div14">8</div>
-        <input class="frame-child13" type="radio" name = rating value = 8 />
+        <input class="frame-child13" type="radio" name = rating value = "8" />
       </div>
       <div class="parent14">
         <div class="div14">9</div>
-        <input class="frame-child13" type="radio" name = rating value = 9 />
+        <input class="frame-child13" type="radio" name = rating value = "9" />
       </div>
 
       <div class="language-wrapper">
@@ -222,35 +222,35 @@
       </div>
       <div class="group">
         <div class="div">1940</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 1940/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "1940"/>
       </div>
       <div class="parent5">
         <div class="div8">1950</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 1950/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "1950"/>
       </div>
       <div class="container1">
         <div class="div">1960</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 1960/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "1960"/>
       </div>
       <div class="frame-div">
         <div class="div">1970</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 1970/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "1970"/>
       </div>
       <div class="parent1">
         <div class="div">1980</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 1980/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "1980"/>
       </div>
       <div class="parent2">
         <div class="div">1990</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 1990/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "1990"/>
       </div>
       <div class="parent3">
         <div class="div">2000</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 2000/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "2000"/>
       </div>
       <div class="parent4">
         <div class="div">2010</div>
-        <input class="ellipse-input" type="radio" name = "released_after" value = 2010/>
+        <input class="ellipse-input" type="radio" name = "released_after" value = "2010"/>
       </div>    
       <div class="rectangle-div"></div>
       <div class="frame-child36"></div>

@@ -1,0 +1,29 @@
+
+{% block stylesheets %}
+<link rel="stylesheet" href="loading.css">
+{% endblock %}
+{% block content %}
+<img class="logo" src="{{ url_for('static', filename='css/public/image2@3x.png') }}">
+<div class="title col-2">
+  <div class="the">the</div>
+  <div class="page">page.</div>
+  <b class="what-do-i-container">
+    <p class="what"><span class="w">W</span><span style="color:white">hat</span></p>
+    <p class="what">&nbsp;</p>
+    <p class="what"><span class="w">D</span><span class="o">o</span></p>
+    <p class="what">&nbsp;</p>
+    <p class="i">I</p>
+    <p class="what">&nbsp;</p>
+    <p class="i"><span>D</span><span class="o">o</span></p>
+  </b>
+</div>
+<button class="login btn" type="submit" >Login</button>
+<button class="login btn1" type="submit" >Sign Up</button>
+<button class="login btn2" type="submit" >About Us</button>
+<button class="login movie" type="submit" >MOVIE</button>
+<button class="login coming" type="submit" >COMING SOON...</button>
+<button class="login coming2" type="submit" >BOOKS</button>
+<button class="login coming3" type="submit" >GAMES</button>
+<button class="login coming4" type="submit" >TV SHOWS</button>
+<button class="login coming5" type="submit" >WEB-SERIES</button>
+{% endblock %}

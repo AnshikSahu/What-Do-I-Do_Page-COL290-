@@ -1,14 +1,92 @@
 * {
     box-sizing: border-box;
 }
+.trending-item {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    top: 60px;
+    border-radius: var(--br-xl);
+    width: 190px;
+    height: 265px;
+    background-image: url(./public/rectangle3@3x.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+  }
+.stars{
+    left:20%;
+}
+.trending-item1{
+    left: 10px ;
+    
+}
+.trending-item2{
+    left: 280px ;
+    
+  }
+  .trending-item3{
+    left: 550px ;
+    
+  }
+  .trending-item4{
+    left: 820px ;
+    
+  }
+  .trending-item5{
+    left: 1090px ;
+    
+  }
+  .icon-color-wrapper {
+    width: 20px;
+    height: 28px;
 
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    left: 1270px;
+    top: 30px;
+  
+}
 .movie-page {
     position: relative;
     background-attachment: fixed;
     color: white;
     top: 2rem;
-
 }
+.user-reviews1{
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    left: 0%;
+    color: var(--color-white);
+    text-align: left;
+    display: inline-block;
+}
+.arrow{
+    position: relative;
+    width: 150px;
+    height: 250px;
+    place-items:center;
+    /* margin-top: 66px; */
+    background-color:azure  ;
+    /* border: none; */
+    border-radius: 0 20px 20px 0;
+    opacity: 10%;
+    left: 1370px;
+    top:66px;
+  }
+  
+  .arrow:hover{
+    background-color:var(--color-gray-200);
+    opacity: 50%;
+  
+  }
 
 .poster {
     position: relative;
@@ -116,9 +194,10 @@
 
 .related {
     position: relative;
-    top: 5rem;
-    left: 4rem;
-    margin-bottom: 20px;
+    top: 1rem;
+    left: 0%;
+    /* overflow-x: scroll;
+    overflow-y: none; */
 }
 
 .trending-item {
@@ -137,20 +216,28 @@
     background-position: top;
 }
 
-.icon-color,
+.icom-color{
+    margin:auto;
+}
+
+/* .icon-color,
 .icon-color-wrapper {
     position: absolute;
     top: 0;
     right: 0;
     width: 20px;
     height: 28px;
-}
+} */
 
-.icon-color-wrapper {
+/* .icon-color-wrapper {
     cursor: pointer;
     border: 0;
     padding: 0;
     background-color: transparent;
     top: 179px;
     right: 0;
+} */
+@media screen and (max-width: 800px){
+    .user-reviews{position: relative;left: -15%;}
+    .add-review{width:30%;}
 }

@@ -3,8 +3,14 @@ from flaskext.mysql import MySQL
 import pymysql 
 import functions
 import hashlib
+from werkzeug.utils import secure_filename
+import uuid as uuid
+import os
 
 app = Flask(__name__) #referencing this file
+###doubt in this
+UPLOAD_FOLDER = "./images/"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 
@@ -38,7 +44,7 @@ def login():
             password = request.form['Password']
             # Check if account exists using MySQL
             password = hashlib.sha256(password.encode())
-            cursor.execute('SELECT * FROM Users WHERE User_Name = %s AND Password = %s', (username, password.hexdigest()))
+            cursor.execute('SELECT * FROM Users1 WHERE User_Name = %s AND Password = %s', (username, password.hexdigest()))
             # Fetch one record and return result
             account = cursor.fetchone()
         # If account exists in accounts table in out database
@@ -81,16 +87,19 @@ def movie():
     except:
         bookmarked=False
     list=functions.movie_details_full(movie_id)
-    return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=bookmarked)
+    return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.Top_movies_by_genres(list[2]),stars=int(float(list[16])/2), bookmarked=bookmarked)
 
 @app.route('/add_bookmark',methods=['POST','GET'])
 def add_bookmark():
     if request.method=='POST':
         movie_id=request.form['movie_id']
-        functions.add_bookmark(str(session['id']),movie_id)
-        list=functions.movie_details_full(movie_id)
-        return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=True)
-
+        try:
+            functions.add_bookmark(str(session['id']),movie_id)
+            list=functions.movie_details_full(movie_id)
+            return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=True)
+        except:
+            flash('Kindly login/signup!')
+            return render_template('login.html')
 @app.route('/bookmarks')
 def bookmarks():
     user_bookmarks = functions.get_bookmarks(str(session['id']))
@@ -103,7 +112,13 @@ def bookmarks():
             l1.append(functions.get_bookmark_posters(int(i)))
     print(l1)
     return render_template('bookmarks.html', list=l1)
-    
+
+# @app.route('/remove_bookmark',methods=['POST','GET'])
+# def remove_bookmark ():
+#     if request.method=='POST':
+        
+
+
 @app.route('/profile',methods=['POST','GET'])
 def profile():
     if request.method == 'GET':
@@ -114,6 +129,8 @@ def profile():
         password=user_details[5]
         user_name=user_details[4]
         about=user_details[10]
+        # profile_pic = user_details[x]  ## sahi karna h
+        # return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password,about=about,profile_pic =profile_pic,review=functions.get_reviews_by_user(session['id']))
         return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password,about=about,review=functions.get_reviews_by_user(session['id']))
     if request.method=='POST':
         for i in request.form.keys():print(i)
@@ -128,7 +145,19 @@ def profile():
         user_name=user_details[4]
         about=request.form['About']
         functions.update_about(str(session['id']),about)
+        # profile_pic=request.files['Profile_pic']
+        
+        # # #get file_name
+        # pic_filename = secure_filename(profile_pic.filename)
+        # if functions.allowed_file(pic_filename):
+        # #     #unique name
+        #     pic_name = str(uuid.uuid1()) + "_" + pic_filename
+        #     # pic_name = str(session['id']) + ".jpg"
+        # #     #save image
+        #     profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'],pic_name))
+        #     profile_pic = pic_name
         password = hashlib.sha256(password.encode())
+        # return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password.hexdigest(),about=about,profile_pic =profile_pic,review=functions.get_reviews_by_user(session['id']))
         return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password.hexdigest(),about=about,review=functions.get_reviews_by_user(session['id']))
     
 @app.route('/add_review',methods=['POST','GET'])
@@ -157,11 +186,30 @@ def loginotp():
 def signup():
     return render_template('signup.html')
 
+
 @app.route('/search_results',methods=['POST','GET'])
 def search_results():
     if request.method == 'POST':
         string=request.form['search']
-        return render_template('search_results.html',list=functions.movies_with_filters_and_search(12,"|","0","0","en",str(string)))
+        return render_template('search_results.html',list=functions.movies(12,"|","0","0","en",str(string)))
+
+
+@app.route('/search_filters',methods=['POST','GET'])
+def search_filters():
+    print("I \n am \n stuck \n here")
+    if request.method == 'POST':
+        print("I \n am \n stuck \n here post")
+        genre=request.form['genre']
+        print("I \n am \n stuck \n here genre")
+        language=request.form['language']
+        print("I \n am \n stuck \n here language")
+        released_after=request.form['released_after']
+        print("I \n am \n stuck \n here released_after")
+        rated_more_than=request.form['rating']
+        print("I \n am \n stuck \n here rating")
+
+        return render_template('search_results.html',list=functions.movies_with_filters(12,genre,released_after,rated_more_than,language))
+    
     
 @app.route('/new_user',methods=['POST','GET'])
 def new_user():
@@ -181,16 +229,20 @@ def new_user():
             session['loggedin'] = True
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute('SELECT * FROM Users WHERE User_Name = %s AND Password = %s', (user_name, password.hexdigest()))
+            cursor.execute('SELECT * FROM Users1 WHERE User_Name = %s AND Password = %s', (user_name, password.hexdigest()))
             # Fetch one record and return result
             account = cursor.fetchone()
             session['id'] = account['User_ID'] # TODO
             session['username'] = account['User_Name']
-            return render_template('index.html',link=functions.movies_by_popularity(10)) # I will modify this
+            return render_template('index.html',list=functions.movies_by_popularity(10)) # I will modify this
 
 @app.route('/community')
 def community():
     return render_template("community.html")
+
+@app.route('/trending')
+def trending():
+    return render_template("trending.html",list=functions.movies_by_popularity(20) )
 
 @app.route('/likeunlike',methods=['POST','GET'])
 def likeunlike():
@@ -207,75 +259,10 @@ def likeunlike():
             (likes,dislikes)=functions.add_unlike_review(str(postid), str(userid), str(movieid))
         # return redirect(f'\movie?movie_id={movie_id}', code=302)
     return jsonify({"likes":likes,"unlikes":dislikes})
-    # return jsonify('success')
-    # try:
-    #     # conn = mysql.connect()
-    #     # cursor = conn.cursor(pymysql.cursors.DictCursor)
-    #     if request.method == 'POST':
-    #         movieid = request.form['movieid']
-    #         postid = request.form['postid'] 
-    #         type = request.form['type']
-    #         #print(postid)
-    #         #print(type)
-    #         cursor.execute("SELECT COUNT(*) AS cntpost FROM like_unlike WHERE postid=%s AND userid=%s", (postid, userid))
-    #         rscount = cursor.fetchone()
-    #         count = rscount['cntpost']
-    #         #print(count)
- 
-    #         if count == 0:
-    #             sql = "INSERT INTO like_unlike(userid,postid,type) VALUES(%s, %s, %s)"
-    #             data = (userid, postid, type)
-    #             conn = mysql.connect()
-    #             cursor = conn.cursor()
-    #             cursor.execute(sql, data)
-    #             conn.commit()
- 
-    #             cur = conn.cursor(pymysql.cursors.DictCursor)
-    #             cur.execute("SELECT COUNT(*) AS cntLike FROM like_unlike WHERE type=1 AND postid=%s",postid)
-    #             rscounttotal = cur.fetchone()
-    #             countlike = rscounttotal['cntLike']
-    #             #print(countlike)
- 
-    #             cur = conn.cursor(pymysql.cursors.DictCursor)
-    #             cur.execute("SELECT COUNT(*) AS cntUnlike FROM like_unlike WHERE type=0 AND postid=%s",postid)
-    #             rscounttotalunlike = cur.fetchone()
-    #             countUnlike = rscounttotalunlike['cntUnlike']
-    #             #print(countUnlike)
- 
-    #             totallikeajax = countlike
-    #             totalunlikeajax = countUnlike
-    #         else:
-    #             sql = "UPDATE like_unlike SET type=%s WHERE userid=%s AND postid=%s"
-    #             data = (type, userid, postid)
-    #             conn = mysql.connect()
-    #             cursor = conn.cursor()
-    #             cursor.execute(sql, data)
-    #             conn.commit()
- 
-    #             cur = conn.cursor(pymysql.cursors.DictCursor)
-    #             cur.execute("SELECT COUNT(*) AS cntLike FROM like_unlike WHERE type=1 AND postid=%s",postid)
-    #             rscounttotal = cur.fetchone()
-    #             countlike = rscounttotal['cntLike']
-    #             #print(countlike)
- 
-    #             cur = conn.cursor(pymysql.cursors.DictCursor)
-    #             cur.execute("SELECT COUNT(*) AS cntUnlike FROM like_unlike WHERE type=0 AND postid=%s",postid)
-    #             rscounttotalunlike = cur.fetchone()
-    #             countUnlike = rscounttotalunlike['cntUnlike']
-    #             #print(countUnlike)
-                 
-    #             totallikeajax = countlike
-    #             totalunlikeajax = countUnlike
-    #     return jsonify({"likes":totallikeajax,"unlikes":totalunlikeajax})
-    # except Exception as e:
-    #     print(e)
-    # finally:
-        # cursor.close() 
-        # conn.close()
 
 
 if __name__=="__main__":
-    app.run(host="10.17.5.13", port=8080, debug=True)
+    app.run(host="10.17.5.13", port=8000, debug=True)
 
 # from flask import Flask, request, session, redirect, url_for, render_template, flash
 # from flaskext.mysql import MySQL

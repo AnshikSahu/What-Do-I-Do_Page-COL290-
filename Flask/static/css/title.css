@@ -18,7 +18,7 @@
   width: 78px;
   height: 490px;
   font-size: var(--font-size-18xl);
-  font-family: var(--font-bright-sunshine-demo);
+  font-family: "Bright Sunshine Demo";
   z-index: 10;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .page {
-  top: 600px;
+  top: 520px;
 }
 
 .w {

@@ -4,15 +4,17 @@ Home
 {% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css' )}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}" />
+
 {% endblock %}
 
 {% block content %}
 
 <div class="mainpage-without-login1">
   <div class="movie-homepage-1">
-      <div class="display ">
-        <div class="frame"></div>
-        <div class ="click">
+    <div class="display ">
+      <div class="frame"></div>
+      <div class="click">
         <button class="display-inner">
           <img class="frame-child" alt="" src="{{url_for('static',filename='css/public/ellipse-5.svg')}}" />
         </button>
@@ -28,56 +30,60 @@ Home
         <button class="display-inner2">
           <img class="frame-child" alt="" src="{{url_for('static',filename='css/public/ellipse-5.svg')}}" />
         </button>
-        </div>
       </div>
-      <div class="community1">
-        <div class="community-child"></div>
-        <div class="frame-parent" id="frameContainer">
-          <button class="wp5558867-aesthetic-profile-pi-wrapper">
-            <!-- <img class="wp5558867-aesthetic-profile-pi-icon" alt=""
+    </div>
+    <div class="community1">
+      <div class="community-child"></div>
+      <div class="frame-parent" id="frameContainer">
+        <button class="wp5558867-aesthetic-profile-pi-wrapper">
+          <!-- <img class="wp5558867-aesthetic-profile-pi-icon" alt=""
             src="{{url_for('static',filename='css//public/wp5558867aestheticprofilepicturewallpapers-1@2x.png')}}" /></button> -->
-            <button class="winniethepooh">WinnieThePooh | </button>
-            <div class="mar-1-2023">Mar 1, 2023</div>
-            <div class="lorem-ipsum-dolor">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Convallis a cras semper auctor neque vitae.<br>
-              COMING SOON!!!
-            </div>
-            <div class="title-of-the">Title of the Post</div>
-            <button class="icon-color-container">
-              <img class="icon-color1" alt=""
-                src="{{url_for('static',filename='css/public/iconcolor.svg')}}" style="  -webkit-transform: scaleX(-1);
-                transform: scaleX(-1);"/></button>
-            <button class="top-in-community">Top in Community</button>
-            <button class="icon-color-frame">
-              <img class="icon-color2" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" style="  -webkit-transform: scaleX(-1);
-              transform: scaleX(-1);"/>
-            </button>
-        </div>
+          <button class="winniethepooh">WinnieThePooh | </button>
+          <div class="mar-1-2023">Mar 1, 2023</div>
+          <div class="lorem-ipsum-dolor">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Convallis a cras semper auctor neque vitae.<br>
+            COMING SOON!!!
+          </div>
+          <div class="title-of-the">Title of the Post</div>
+          <button class="icon-color-container">
+            <img class="icon-color1" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" style="  -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);" /></button>
+          <button class="top-in-community">Top in Community</button>
+          <button class="icon-color-frame">
+            <img class="icon-color2" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" style="  -webkit-transform: scaleX(-1);
+              transform: scaleX(-1);" />
+          </button>
       </div>
-    
+    </div>
+
     <button class="trending1">Trending</button>
     <div class="trending-child"></div>
     <div class="trending">
-      
 
-          <a href="{{url_for('movie', movie_id=link[0][0])}}" class="trending-item trending-item1"
-            style="background-image:url({{link[0][1]}})"></a>
-            <a href="{{url_for('movie', movie_id=link[1][0])}}" class="trending-item trending-item2"
-            style="background-image:url({{link[1][1]}})"></a>
-            <a href="{{url_for('movie', movie_id=link[2][0])}}" class="trending-item trending-item3"
-            style="background-image:url({{link[2][1]}})"></a>
-            <a href="{{url_for('movie', movie_id=link[3][0])}}" class="trending-item trending-item4"
-            style="background-image:url({{link[3][1]}})"></a>
-            <a href="{{url_for('movie', movie_id=link[4][0])}}" class="trending-item trending-item5"
-            style="background-image:url({{link[4][1]}})"></a>
-            <button class="arrow">
+
+      <a href="{{url_for('movie', movie_id=link[0][0])}}" class="trending-item trending-item1"
+        style="background-image:url({{link[0][1]}})"></a>
+      <a href="{{url_for('movie', movie_id=link[1][0])}}" class="trending-item trending-item2"
+        style="background-image:url({{link[1][1]}})"></a>
+      <a href="{{url_for('movie', movie_id=link[2][0])}}" class="trending-item trending-item3"
+        style="background-image:url({{link[2][1]}})"></a>
+      <a href="{{url_for('movie', movie_id=link[3][0])}}" class="trending-item trending-item4"
+        style="background-image:url({{link[3][1]}})"></a>
+      <a href="{{url_for('movie', movie_id=link[4][0])}}" class="trending-item trending-item5"
+        style="background-image:url({{link[4][1]}})"></a>
+      <!-- <button class="arrow">
         <button class="icon-color-wrapper">
           <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
       </button>
-      </button>
-      
+      </button> -->
+      <a href="{{url_for('trending')}}">
+        <button class="arrow">
+
+          <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+        </button>
+      </a>
     </div>
   </div>
 </div>

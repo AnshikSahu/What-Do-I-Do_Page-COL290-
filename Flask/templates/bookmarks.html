@@ -1,27 +1,35 @@
 {% extends 'base2.html' %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/search_results.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}" />
+
 {% endblock %}
 {% block content %}
 
 <div class="container related">
-    <h2 class="user-reviews" style="color:white;">
-        Bookmarks <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
-    </h2>
-    <div class="row">
-    <!-- {% if list!=[] %} -->
-      {% for i in list %}
-      <div class="col-md-3" style="display:flex; margin-bottom:15px;">
-        <a href="{{url_for('movie', movie_id=i[0][0])}}" class="trending-item" style="background-image: url({{i[0][1]}});">
+  <h2 class="user-reviews" style="color:white;">
+    Bookmarks <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+  </h2>
+  <div class="row">
+    {% if list!=[] %}
+    {% for i in list %}
+    <div class="col-md-3" style="display:flex; margin-bottom:15px;">
+      <div class="row">
+        <div class="col">
+          <a href="{{url_for('movie', movie_id=i[0][0])}}" class="trending-item"
+            style="background-image: url({{i[0][1]}});"></a>
           <br>
-      <button class = "btn btn-dark remove">Remove</button>
-    </a>
+          <div class="col-12">
+            <button class="btn btn-dark remove" style="z-index:10">Remove</button>
+          </div>
+        </div>
       </div>
-      {% endfor %}
-      <!-- {% else %} -->
-      <br><br>
-      <h3 style="color:white;">No Bookmarks Yet!</h3>
-      <!-- {% endif %} -->
     </div>
+    {% endfor %}
+    {% else %}
+    <br><br>
+    <h3 style="color:white;">No Bookmarks Yet!</h3>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

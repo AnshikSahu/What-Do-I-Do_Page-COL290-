@@ -7,9 +7,10 @@ from nltk.stem.porter import PorterStemmer
 ps=PorterStemmer()
 class ML:
     def __init__(self):
-        self.vec=pickle.loads(open('vec_list.pkl','rb').read())
-        self.feature_names=pickle.loads(open('feature.pkl','rb').read())
-        self.similarity=pickle.loads(open('similarity.pkl','rb').read())
+        # self.vec=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/vec_list.pkl','rb').read())
+        # self.feature_names=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/features.pkl','rb').read())
+        # self.similarity=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/similarity.pkl','rb').read())
+        self.r=0
     def con(self,s):
         a=""
         l=s.split()
@@ -43,28 +44,32 @@ class ML:
         s=list(sorted(s,reverse=True,key=lambda x:x[1]))
         s=s[1:21]
         return s
-    def update_personilization(self,vec_c,vec_o,type):
-        if type=="Friend":
-            vec_o=np.divide(vec_o,2,dtype=int)
-            return np.add(vec_c,vec_o)
+    def update_personilization(self,vec_c,id,type):
+        # if type=="Friend":
+        #     vec_o=np.divide(vec_o,2,dtype=int)
+        #     return np.add(vec_c,vec_o)
+        vec_o=self.vec[id]
         if type=="Bookmark":
             return np.add(vec_c,vec_o)
         if type=="Movie":
             vec_o=np.multiply(vec_o,2)
             return np.add(vec_o,vec_c)
     def sentiment(self,s):
+        print("API")
         url = "https://api.apilayer.com/sentiment/analysis"
         s=s.replace(" ","%20")
         payload = s.encode("utf-8")
         headers= {
-        "apikey": "iOMAkbUfYHMxxXE00rY5k3phtiQV0tIU"
-        }
+        "apikey": "iOMAkbUfYHMxxXE00rY5k3phtiQV0tIU"}
         response = requests.request("POST", url, headers=headers, data = payload)
         result = json.loads(response.text)
-        if(result=="negative"):
+        if(result['sentiment']=="negative"):
+            print("-1")
             return -1
-        if(result=="positive"):
+        if(result['sentiment']=="positive"):
+            print("1")
             return 1
+        print("0")
         return 0
     def related_to_movie(self,id):
         return self.similarity[id]

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/moviepage2.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}" />
+
 <!-- For like dislike button -->
 <script type='text/javascript'>
   $(document).ready(function () {
@@ -20,7 +22,7 @@
       $.ajax({
         url: '/likeunlike',
         type: 'post',
-        data: { movieid: movieid, postid: postid,userid:userid, type: type },
+        data: { movieid: movieid, postid: postid, userid: userid, type: type },
         dataType: 'json',
         success: function (data) {
           var likes = data['likes'];
@@ -51,7 +53,7 @@
       <div class="col-md-6">
         <h1 class="movie-name" id="header">{{movie}}</h1>
         <br>
-
+<div class ="stars">
         <div class="col-md-8">
           <div class="container">
             <div class="row">
@@ -71,7 +73,6 @@
               </div>
               <div>
                 <div class="container">
-                  <div class="stars">
 
                     <div class="row">
                       {% for i in range(stars+1) %}
@@ -79,13 +80,13 @@
                         <img src="{{url_for('static',filename='css/public/star.svg')}}" alt="">
                       </div>
                       {% endfor %}
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
         <div class="movie-info">{{overview}}
         </div>
         <form action="add_bookmark" method="POST">
@@ -147,15 +148,15 @@
     {% if review != [] %}
     <span class="most-liked-review">&nbsp;MOST LIKED REVIEW&nbsp; &nbsp;</span>
     {% for i in review %}
-    <div class="review-container">
+    <div class="review-container" style="background-color: {{i[-1]}}">
 
       <div class="row">
         <div class="col-3">
           <h3 class="title-of-the">{{i[6]}}</h3>
         </div>
         <div class="col-3">
-          <span class="username">{{i[7]}}</span>
-          <span class="date" id="date">ADD DATE HERE</span>
+          <span class="username">{{i[-1]}}</span>
+          <span class="date" id="date">April 26, 2023</span>
         </div>
         <div class="col-3">
           <!-- <form action="" method="post"> -->
@@ -171,7 +172,8 @@
 
         </div>
         <div class="col-3">
-          <input type="button" value="Unlike" id="unlike_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="unlike" /> (<span id="unlikes_{{i[0]}}">{{i[5]}}</span>)
+          <input type="button" value="Unlike" id="unlike_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="unlike" />
+          (<span id="unlikes_{{i[0]}}">{{i[5]}}</span>)
 
           <!--<form action="" method="post">
             <button type="submit"  style="background:transparent;color:white; border:none;" id="dislikebtn">
@@ -194,25 +196,43 @@
   {% else %}
   No Reviews Yet!
   {% endif %}
-
   <br>
   <br>
-  <div class="container related">
-    <h2 class="user-reviews">
+  <br>
+  <br>
+  <br>
+  <div class="row">
+    <h2 class="user-reviews1">
       Related <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
     </h2>
-    <div class="row">
-      {% for i in range(5) %}
-      <div class="col">
-        <a href="{{url_for('movie', movie_id=link[i][0])}}" class="trending-item"
-          style="background-image:url({{link[i][1]}})"></a>
-      </div>
-      {% endfor %}
+  </div>
+
+  <div class="related">
+
+
+
+    <a href="{{url_for('movie', movie_id=link[0][0])}}" class="trending-item trending-item1"
+      style="background-image:url({{link[0][1]}})"></a>
+    <a href="{{url_for('movie', movie_id=link[1][0])}}" class="trending-item trending-item2"
+      style="background-image:url({{link[1][1]}})"></a>
+    <a href="{{url_for('movie', movie_id=link[2][0])}}" class="trending-item trending-item3"
+      style="background-image:url({{link[2][1]}})"></a>
+    <a href="{{url_for('movie', movie_id=link[3][0])}}" class="trending-item trending-item4"
+      style="background-image:url({{link[3][1]}})"></a>
+    <a href="{{url_for('movie', movie_id=link[4][0])}}" class="trending-item trending-item5"
+      style="background-image:url({{link[4][1]}})"></a>
+    <button class="arrow">
       <button class="icon-color-wrapper">
         <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
       </button>
-    </div>
-    <img class="movie-page-without-login-child3" alt="" src="/public/rectangle-9@2x.png" />
+    </button>
+
+
+    <button class="icon-color-wrapper">
+      <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+    </button>
   </div>
+  <img class="movie-page-without-login-child3" alt="" src="/public/rectangle-9@2x.png" />
+</div>
 </div>
 {% endblock %}

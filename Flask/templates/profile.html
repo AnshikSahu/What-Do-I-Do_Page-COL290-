@@ -5,14 +5,26 @@
 {% block content %}
 <div class="profile-contaianer">
 
-    <form action=/profile method=POST id="usrform">
+    <form action=/profile method=POST id="usrform" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-3 border-right whitebg">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    {% if profile_pic %}
+                    <img class="rounded-circle mt-5"
                         width="150px"
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                        class="font-weight-bold">{{user_name}}</span><span class="text-black-50">{{email}}</span><span>
+                        src = "{{url_for('static',filename = 'images/'+ profile_pic)}}">
+
+                    {% else %}
+                    <img class="rounded-circle mt-5"
+                        width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+
+                    {% endif %}
+                                            
+                        <span class="font-weight-bold">{{user_name}}
+                    
+                    </span><span class="text-black-50">{{email}}</span><span>
                     </span></div>
             </div>
             <div class="col-md-3 border-right whitebg">
@@ -38,6 +50,12 @@
                         <div class="col-md-12"><label class="labels">Password</label><input type="password"
                                 name=Password id=Password class="form-control" value={{password}}></div>
                     </div>
+                    <!-- <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control"
+                            placeholder={user_name} value=""></div>
+                        <div class="col-md-12"><label class="labels">Update Profile Pic</label><input type="file"
+                                name=Profile_pic id=Profile_pic class="form-control" value={{profile_pic}}></div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-md-3 whitebg">

@@ -190,7 +190,7 @@
   cursor: pointer;
   border: 0;
   left: 1270px;
-  top: 66px;
+  top: 65px;
 
 }
 /* .icon-color-wrapper {
@@ -438,7 +438,6 @@
   .trending {
     overflow-x: scroll;
   }
-  
 }
 
 @media screen and (max-width: 800px) {
@@ -454,7 +453,7 @@
   .trending {width: 95%;left: 2%;top: 472.16px;}
   .trending-child{ left: 3%;top: 466.16px;}
   .trending1{left: calc(3% + 15px);top: 461.16px;}
-  .movie-homepage-1{height:860.16px;}
+  .movie-homepage-1{height:860.16px; top:200px;}
 }
 @media screen and (max-width: 950px) and (min-width: 800px) {
 

@@ -46,6 +46,6 @@ body {
 }
 
 @font-face {
-  font-family: 'var(--font-bright-sunshine-demo)';
+  font-family: "Bright Sunshine Demo";
   src: url('../../../fonts/bright-sunshine-font/BrightSunshineDemo-7BvgD.ttf') format('ttf');
 }
