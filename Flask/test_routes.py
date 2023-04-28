@@ -11,7 +11,7 @@ class TestApp(unittest.TestCase):
     def test_search_get(self):
         with self.client.session_transaction() as session:
             session['id'] = 1 
-        data={'search':"the"}
+        data={'search':"theories"}
         response=self.client.post('/search_results',data=data,content_type='multipart/form-data')
         self.assertEqual(response.status_code,200)
     def test_new_user(self):

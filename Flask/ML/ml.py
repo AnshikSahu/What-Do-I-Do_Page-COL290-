@@ -7,9 +7,9 @@ from nltk.stem.porter import PorterStemmer
 ps=PorterStemmer()
 class ML:
     def __init__(self):
-        # self.vec=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/vec_list.pkl','rb').read())
-        # self.feature_names=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/features.pkl','rb').read())
-        # self.similarity=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/similarity.pkl','rb').read())
+        self.vec=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/vec_list.pkl','rb').read())
+        self.feature_names=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/feature.pkl','rb').read())
+        self.similarity=pickle.loads(open('/home/baadalvm/COP290-Assignment3-photons/Flask/ML/recommendations.pkl','rb').read())
         self.r=0
     def con(self,s):
         a=""
@@ -33,7 +33,10 @@ class ML:
         s=list(enumerate(similarity))
         s=list(sorted(s,reverse=True,key=lambda x:x[1]))
         s=s[1:21]
-        return s
+        l=[]
+        for i in s:
+            l.append(i[0])
+        return l
     def recommend_by_vector(self,v):
         s_vec=np.array(v).reshape(1,-1)
         similarity=[]
@@ -43,7 +46,10 @@ class ML:
         s=list(enumerate(similarity))
         s=list(sorted(s,reverse=True,key=lambda x:x[1]))
         s=s[1:21]
-        return s
+        l=[]
+        for i in s:
+            l.append(i[0])
+        return l
     def update_personilization(self,vec_c,id,type):
         # if type=="Friend":
         #     vec_o=np.divide(vec_o,2,dtype=int)

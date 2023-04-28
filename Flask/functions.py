@@ -18,16 +18,16 @@ def allowed_file(filename):
 def movie_details_full(Movie_ID):
 #     with engine.connect() as conn:
          print(Movie_ID)
-         conn.execute("SELECT * FROM Mov WHERE Movie_ID ="+str(Movie_ID))
+         conn.execute("SELECT * FROM Mov1 WHERE Movie_ID ="+str(Movie_ID))
          row=conn.fetchall()
          return list(row[0])
     
 
 def movies_with_filters(number_of_movies, genre,released_after,rated_more_than,language):
 #      with engine.connect() as conn:
-          print ("select Movie_ID,Posters from Mov where Release_Year >= \""+released_after+"\" and Rating > \""+rated_more_than+"\"  and Language=\""+language+"\" order by Popularity desc limit "+str(number_of_movies) )
+          print ("select Movie_ID,Posters from Mov1 where Release_Year >= \""+released_after+"\" and Rating > \""+rated_more_than+"\"  and Language=\""+language+"\" order by Popularity desc limit "+str(number_of_movies) )
 
-          rows =conn.execute("select Movie_ID,Posters from Mov where Release_Year >= \""+released_after+"\" and Rating > \""+rated_more_than+"\"  AND Genres like \"%"+genre+"%\" AND Language=\""+language+"\" order by Popularity desc limit "+str(number_of_movies) )
+          rows =conn.execute("select Movie_ID,Posters from Mov1 where Release_Year >= \""+released_after+"\" and Rating > \""+rated_more_than+"\"  AND Genres like \"%"+genre+"%\" AND Language=\""+language+"\" order by Popularity desc limit "+str(number_of_movies) )
           rows=conn.fetchall()
           return rows
     
@@ -36,24 +36,25 @@ def movies_with_filters(number_of_movies, genre,released_after,rated_more_than,l
 
 def movies(number_of_movies, genre,released_after,rated_more_than,language,search):
 #      with engine.connect() as conn:
-          rows =conn.execute("select Movie_ID,Posters from Mov where Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \"%"+search+"%\" AND Genres like \"%"+genre+"%\" AND Language=\""+language+"\" order by Rating desc LIMIT "+str(number_of_movies) )
-          rows=conn.fetchall()
-        #   if(len(rows)<number_of_movies):
-        #         result=ml.recommend_by_string(search)
-        #         rows2=[]
-        #         for i in range(number_of_movies-len(rows)):
-        #                 row3=conn.execute("select Movie_ID,Posters from Mov where Movie_ID="+str(result[i]))
-        #                 row3=conn.fetchall()
-        #                 rows2.append(row3[0])
-        #         rows=rows+rows2
-          return rows
+        rows =conn.execute("select Movie_ID,Posters from Mov1 where Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \"%"+search+"%\" AND Genres like \"%"+genre+"%\" AND Language=\""+language+"\" order by Rating desc LIMIT "+str(number_of_movies) )
+        rows=conn.fetchall()
+        if(len(rows)==0):
+                result=ml.recommend_by_string(search)
+                rows2=[]
+                for i in range(number_of_movies-len(rows)):
+                        row3=conn.execute("select Movie_ID,Posters from Mov1 where Movie_ID="+str(result[i]))
+                        row3=conn.fetchall()
+                        rows2.append(row3[0])
+                rows=rows+rows2
+                return (rows,1)
+        return (rows,0)
 
 def movies_by_popularity(number_of_movies):
-          conn.execute(("SELECT Movie_ID,Posters FROM Mov ORDER BY Popularity DESC LIMIT "+str(number_of_movies)))
+          conn.execute(("SELECT Movie_ID,Posters FROM Mov1 ORDER BY Popularity DESC LIMIT "+str(number_of_movies)))
           rows=conn.fetchall()
           return rows
 def get_bookmark_posters(movie_id):
-          conn.execute("SELECT Movie_ID,Posters FROM Mov where Movie_ID="+str(movie_id))
+          conn.execute("SELECT Movie_ID,Posters FROM Mov1 where Movie_ID="+str(movie_id))
           rows=conn.fetchall()
           return rows        
 
@@ -65,10 +66,10 @@ def add_review(movie_id,user_id,title,review):
         conn.execute(("SELECT Review_ID FROM Reviews WHERE Movie_ID = \""+movie_id+"\" AND User_ID = \""+user_id+"\" AND Review = \""+review+"\""))
         row=conn.fetchall()
         row=str(row[0][0])
-        conn.execute(("select Reviews from Mov where Movie_ID="+movie_id+""))
+        conn.execute(("select Reviews from Mov1 where Movie_ID="+movie_id+""))
         temp=conn.fetchall()
         temp=str(list(temp)[0][0])
-        conn.execute(("UPDATE Mov SET Reviews = \""+ temp+"|"+row +"\" WHERE Movie_ID ="+movie_id))
+        conn.execute(("UPDATE Mov1 SET Reviews = \""+ temp+"|"+row +"\" WHERE Movie_ID ="+movie_id))
         conn.execute("commit")
         conn.execute(("select Reviews from Users1 where User_ID="+user_id))
         temp=conn.fetchall()
@@ -244,9 +245,10 @@ def Top_movies_by_genres (genre):
          lis=["Action","Thriller"]
         if len(lis)==1:
          lis=lis.append("Action")
+        if lis==None:
+         lis=["Action","Thriller"]
         print(lis)
-        print("\n\n\n\n\ I am here \n\n\n\n\n")
-        conn.execute("select Movie_ID,Posters from Mov where Genres like \"%"+lis[0]+"%\" and Genres like \"%"+lis[1]+"%\" order by Popularity desc limit "+str(5))
+        conn.execute("select Movie_ID,Posters from Mov1 where Genres like \"%"+lis[0]+"%\" and Genres like \"%"+lis[1]+"%\" order by Popularity desc limit "+str(5))
         rows=conn.fetchall()
         return rows
 # def find_user(user_name):

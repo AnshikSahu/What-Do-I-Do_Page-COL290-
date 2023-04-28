@@ -8,6 +8,10 @@
     <h2 class="user-reviews" style="color:white;">
         Search Results <img alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
     </h2>
+    <br>
+    <div class="row" style="color:white">
+      {{message}}
+    </div>
     <div class="row">
       {% for i in list %}
       <div class="col-md-3" style="display:flex; margin-bottom:15px;">
