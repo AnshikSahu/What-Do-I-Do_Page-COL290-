@@ -13,7 +13,6 @@ UPLOAD_FOLDER = "./images/"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-
 @app.route('/')
 def index():
     link=functions.movies_by_popularity(10)
@@ -69,13 +68,13 @@ def logout():
    # Redirect to login page
    return redirect(url_for('index'))
 
-@app.route('/friendsprofile')
-def friendsprofile():
-    return render_template('friendsprofile.html')
+# @app.route('/friendsprofile')
+# def friendsprofile():
+#     return render_template('friendsprofile.html')
 
-@app.route('/strangerprofile')
-def strangerprofile():
-    return render_template('strangerprofile.html')
+# @app.route('/strangerprofile')
+# def strangerprofile():
+#     return render_template('strangerprofile.html')
 
 @app.route('/movie')
 def movie():
@@ -184,26 +183,24 @@ def signup():
 def search_results():
     if request.method == 'POST':
         string=request.form['search']
-        list,bool=functions.movies(12,"|","0","0","en",str(string))
+        list,bool,text=functions.movies(12,"|","0","0","en",str(string))
         message=""
-        if bool:
-            message= "Sorry, we couldn't find the movie you requested; here are the recommendations."
+        if bool==1:
+            message = "Sorry, we couldn't find the movie you requested; here are the recommendations from our ML model!"
+        elif bool==2:
+            message = f"Sorry, we couldn't find the movie you requested; did you mean {text}?"
+        elif result=[]:
+            message = "Sorry, we couldn't find the movie you requested; try another one!" 
         return render_template('search_results.html',list=list, message=message)
 
 
 @app.route('/search_filters',methods=['POST','GET'])
 def search_filters():
-    print("I \n am \n stuck \n here")
     if request.method == 'POST':
-        print("I \n am \n stuck \n here post")
         genre=request.form['genre']
-        print("I \n am \n stuck \n here genre")
         language=request.form['language']
-        print("I \n am \n stuck \n here language")
         released_after=request.form['released_after']
-        print("I \n am \n stuck \n here released_after")
         rated_more_than=request.form['rating']
-        print("I \n am \n stuck \n here rating")
 
         return render_template('search_results.html',list=functions.movies_with_filters(12,genre,released_after,rated_more_than,language))
     

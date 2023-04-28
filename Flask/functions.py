@@ -1,5 +1,6 @@
 import mysql.connector
 from datetime import date
+import requests,json
 from ML.ml import ML
 ml=ML()
 mydb= mysql.connector.connect(
@@ -11,6 +12,26 @@ mydb= mysql.connector.connect(
         )
 conn=mydb.cursor ()
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+def did_you_mean(s):
+    s=s.replace(" ","%20")
+    url = f"https://api.apilayer.com/dymt/did_you_mean_this?q={s}"
+
+    payload = {}
+    headers= {
+      "apikey": "rrFkO9gv7i9qzt7ruE7MHOC77iXk85tn"
+    }
+    proxies = {
+    "http": "http://proxy22.iitd.ac.in:3128",
+    "https": "http://proxy22.iitd.ac.in:3128"
+}
+    response = requests.request("GET", url, headers=headers, data = payload, proxies=proxies)
+
+    status_code = response.status_code
+    output = json.loads(response.text)
+    print(output)
+    return output['result'], output['is_modified']
+
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -26,7 +47,6 @@ def movie_details_full(Movie_ID):
 def movies_with_filters(number_of_movies, genre,released_after,rated_more_than,language):
 #      with engine.connect() as conn:
           print ("select Movie_ID,Posters from Mov1 where Release_Year >= \""+released_after+"\" and Rating > \""+rated_more_than+"\"  and Language=\""+language+"\" order by Popularity desc limit "+str(number_of_movies) )
-
           rows =conn.execute("select Movie_ID,Posters from Mov1 where Release_Year >= \""+released_after+"\" and Rating > \""+rated_more_than+"\"  AND Genres like \"%"+genre+"%\" AND Language=\""+language+"\" order by Popularity desc limit "+str(number_of_movies) )
           rows=conn.fetchall()
           return rows
@@ -41,13 +61,21 @@ def movies(number_of_movies, genre,released_after,rated_more_than,language,searc
         if(len(rows)==0):
                 result=ml.recommend_by_string(search)
                 rows2=[]
-                for i in range(number_of_movies-len(rows)):
-                        row3=conn.execute("select Movie_ID,Posters from Mov1 where Movie_ID="+str(result[i]))
-                        row3=conn.fetchall()
-                        rows2.append(row3[0])
-                rows=rows+rows2
-                return (rows,1)
-        return (rows,0)
+                if result!=[]:
+                        for i in range(number_of_movies-len(rows)):
+                                row3=conn.execute("select Movie_ID,Posters from Mov1 where Movie_ID="+str(result[i]))
+                                row3=conn.fetchall()
+                                rows2.append(row3[0])
+                        rows=rows+rows2   
+                if (len(rows)==0):
+                        print("Trying the API")
+                        newsearch,boo = did_you_mean(search)
+                        if boo:
+                                rows = conn.execute("select Movie_ID,Posters from Mov1 where Release_Year >= \""+released_after+"\" AND Rating > \""+rated_more_than+"\" AND Title like \"%"+newsearch+"%\" AND Genres like \"%"+genre+"%\" AND Language=\""+language+"\" order by Rating desc LIMIT "+str(number_of_movies) )
+                                rows = conn.fetchall()
+                                return (rows,2,newsearch)
+                return (rows,1,"")
+        return (rows,0,"")
 
 def movies_by_popularity(number_of_movies):
           conn.execute(("SELECT Movie_ID,Posters FROM Mov1 ORDER BY Popularity DESC LIMIT "+str(number_of_movies)))
@@ -84,7 +112,6 @@ def add_review(movie_id,user_id,title,review):
 
 
 def get_reviews(movie_id):
-
           conn.execute(("select * from Reviews where Movie_ID ="+movie_id+" order by Likes desc limit 5"))
           lis=conn.fetchall()
           for i in range (len(lis)):
@@ -92,6 +119,7 @@ def get_reviews(movie_id):
               templ.append(user_details_with_ID(str(lis[i][2]))[4])
               lis[i]=templ
           return lis
+
 def get_reviews_by_user(user_id):
           conn.execute(("select * from Reviews where User_ID ="+str(user_id)+" order by Likes desc limit 5"))
           lis=conn.fetchall()
@@ -222,22 +250,22 @@ def add_unlike_review(postid,userid, movieid):
                 return (int(likes),int(num)+1)
 
 
-def add_vector (user_id,lis):
-        str=""
-        for i in lis:
-                lis=lis.append("|"+str(i))
-        conn.execute ("update Users1 set Vector= \""+str+"\" where User_ID =\""+user_id+"\"")
-        conn.execute("commit")
-def fetch_vector (user_id):
-        conn.execute ("select Vector from Users1 where User_ID ="+user_id)
-        str=conn.fetchall()[0][0] 
-        if str=="":
-                return [0 for i in range (2500)]
-        lis=str.split("|")
-        lis1=[]
-        for i in lis:
-               lis1.append(int(i))
-        return lis1
+# def add_vector (user_id,lis):
+#         str=""
+#         for i in lis:
+#                 lis=lis.append("|"+str(i))
+#         conn.execute ("update Users1 set Vector= \""+str+"\" where User_ID =\""+user_id+"\"")
+#         conn.execute("commit")
+# def fetch_vector (user_id):
+#         conn.execute ("select Vector from Users1 where User_ID ="+user_id)
+#         str=conn.fetchall()[0][0] 
+#         if str=="":
+#                 return [0 for i in range (2500)]
+#         lis=str.split("|")
+#         lis1=[]
+#         for i in lis:
+#                lis1.append(int(i))
+#         return lis1
 
 def Top_movies_by_genres (genre):
         lis=genre.split("|")

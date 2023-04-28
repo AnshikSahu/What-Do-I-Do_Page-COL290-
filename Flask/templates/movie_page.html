@@ -148,7 +148,7 @@
     {% if review != [] %}
     <span class="most-liked-review">&nbsp;MOST LIKED REVIEW&nbsp; &nbsp;</span>
     {% for i in review %}
-    <div class="review-container" style="background-color: {{i[-1]}}">
+    <div class="review-container" style='background-color: "{{i[9]}}"'>
 
       <div class="row">
         <div class="col-3">
@@ -159,28 +159,13 @@
           <span class="date" id="date">April 26, 2023</span>
         </div>
         <div class="col-3">
-          <!-- <form action="" method="post"> -->
-          <!-- <button type="submit"  style="background:transparent;color:white; border:none;" id="likebtn{{i[0]}}"
-            onclick="document.getElementById('likenum{{i[0]}}').innerHTML=1;
-            document.getElementById('likebtn{{i[0]}}').style='border:0.1px solid white; background-color:black; color:white; padding:2px;'">
-              <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/like.svg')}}" id="likeimg{{i[0]}}" />
-              <label class="div1" id="likenum{{i[0]}}" disabled>{{i[4]}}</label>
-            </button> -->
-          <!-- </form> -->
-          <input type="button" value="Like" id="like_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="like" /> (<span
+          <input type="button" value="" id="like_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="like" /> (<span
             id="likes_{{i[0]}}">{{i[4]}}</span>)
 
         </div>
         <div class="col-3">
-          <input type="button" value="Unlike" id="unlike_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="unlike" />
+          <input type="button" value="" id="unlike_{{i[0]}}_{{movie_id}}_{{session['id']}}" class="unlike" />
           (<span id="unlikes_{{i[0]}}">{{i[5]}}</span>)
-
-          <!--<form action="" method="post">
-            <button type="submit"  style="background:transparent;color:white; border:none;" id="dislikebtn">
-              <img class="vector-icon" alt="" src="{{url_for('static',filename='css/public/dislike.svg')}}" />
-              <label class="div1" id="dislikenum" disabled>{{i[5]}}</label>
-            </button>
-          </form>-->
         </div>
       </div>
       <br>
@@ -210,17 +195,10 @@
   <div class="related">
 
 
-
-    <a href="{{url_for('movie', movie_id=link[0][0])}}" class="trending-item trending-item1"
-      style="background-image:url({{link[0][1]}})"></a>
-    <a href="{{url_for('movie', movie_id=link[1][0])}}" class="trending-item trending-item2"
-      style="background-image:url({{link[1][1]}})"></a>
-    <a href="{{url_for('movie', movie_id=link[2][0])}}" class="trending-item trending-item3"
-      style="background-image:url({{link[2][1]}})"></a>
-    <a href="{{url_for('movie', movie_id=link[3][0])}}" class="trending-item trending-item4"
-      style="background-image:url({{link[3][1]}})"></a>
-    <a href="{{url_for('movie', movie_id=link[4][0])}}" class="trending-item trending-item5"
-      style="background-image:url({{link[4][1]}})"></a>
+    {% for i in range(link|length) %}
+    <a href="{{url_for('movie', movie_id=link[i][0])}}" class="trending-item trending-item{{i+1}}"
+      style="background-image:url({{link[i][1]}})"></a>
+    {% endfor %}
     <button class="arrow">
       <button class="icon-color-wrapper">
         <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />

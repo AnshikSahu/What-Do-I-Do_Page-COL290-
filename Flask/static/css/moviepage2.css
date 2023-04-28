@@ -220,24 +220,33 @@
     margin:auto;
 }
 
-/* .icon-color,
-.icon-color-wrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 28px;
-} */
 
-/* .icon-color-wrapper {
-    cursor: pointer;
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    top: 179px;
-    right: 0;
-} */
 @media screen and (max-width: 800px){
     .user-reviews{position: relative;left: -15%;}
     .add-review{width:30%;}
+}
+.like{
+    border:none;
+    background-image: url('public/like.svg');
+    background-repeat: no-repeat;
+    width: 30px;
+    height:25px;
+    background-color:black;
+    transition:0.1s;
+}
+.like:hover{
+    transform:scale(1.2)
+}
+
+.unlike{
+    border:none;
+    background-image: url('public/dislike.svg');
+    background-repeat: no-repeat;
+    width: 30px;
+    height:25px;
+    background-color:rgb(68, 0, 0);
+    transition:0.1s;
+}
+.unlike:hover{
+    transform:scale(1.2)
 }
