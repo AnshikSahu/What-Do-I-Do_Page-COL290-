@@ -189,7 +189,7 @@ def search_results():
             message = "Sorry, we couldn't find the movie you requested; here are the recommendations from our ML model!"
         elif bool==2:
             message = f"Sorry, we couldn't find the movie you requested; did you mean {text}?"
-        elif result=[]:
+        elif result==[]:
             message = "Sorry, we couldn't find the movie you requested; try another one!" 
         return render_template('search_results.html',list=list, message=message)
 
