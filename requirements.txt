@@ -3,7 +3,6 @@ mysql-connector-python
 PyMySQL
 flask-mysql
 requests
-unittest
 nltk
 numpy
 scikit-learn
