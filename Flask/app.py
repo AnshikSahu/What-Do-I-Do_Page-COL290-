@@ -5,31 +5,31 @@ import functions
 import hashlib
 from werkzeug.utils import secure_filename
 import uuid as uuid
-import os
 
 app = Flask(__name__) #referencing this file
-###doubt in this
-UPLOAD_FOLDER = "./images/"
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
+# The home page
 @app.route('/')
 def index():
-    link=functions.movies_by_popularity(10)
+    link=[]
+    try:
+        link=functions.return_20_movies(session['id']) [0:5]
+    except:
+        link=functions.movies_by_popularity(5)
     return render_template('index.html',link=link)
 
 app.secret_key = 'cairocoders-ednalan'
  
 mysql = MySQL()
    
-# MySQL configurations
+# MySQL configurations for session
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'my-secret-password'
 app.config['MYSQL_DATABASE_DB'] = 'photons'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
  
-# http://localhost:5000/pythonlogin/ - this will be the login page
+# Login Page
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method=='POST':
@@ -68,13 +68,6 @@ def logout():
    # Redirect to login page
    return redirect(url_for('index'))
 
-# @app.route('/friendsprofile')
-# def friendsprofile():
-#     return render_template('friendsprofile.html')
-
-# @app.route('/strangerprofile')
-# def strangerprofile():
-#     return render_template('strangerprofile.html')
 
 @app.route('/movie')
 def movie():
@@ -85,6 +78,10 @@ def movie():
                 bookmarked=True
     except:
         bookmarked=False
+    try:
+        functions.update_user(movie_id,str(session['id']),"Movie")
+    except:
+        pass
     list=functions.movie_details_full(movie_id)
     return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.Top_movies_by_genres(list[2]),stars=int(float(list[16])/2), bookmarked=bookmarked)
 
@@ -93,12 +90,15 @@ def add_bookmark():
     if request.method=='POST':
         movie_id=request.form['movie_id']
         try:
+            functions.update_user(movie_id,str(session['id']),"Bookmark")
             functions.add_bookmark(str(session['id']),movie_id)
             list=functions.movie_details_full(movie_id)
             return render_template('movie_page.html',movie_id=list[0],movie=list[1],genres=list[2],year=list[3],tag_line=list[4],overview=list[5],revenue=list[6],language=list[7],director=list[8],actors=list[9],runtime=list[10],age=list[11],homepage=list[12],poster=list[13],popularity=list[14],rating=list[16],review=functions.get_reviews(movie_id),link=functions.movies_by_popularity(10),stars=int(float(list[16])/2), bookmarked=True)
         except:
+            
             flash('Kindly login/signup!')
             return render_template('login.html')
+
 @app.route('/bookmarks')
 def bookmarks():
     user_bookmarks = functions.get_bookmarks(str(session['id']))
@@ -112,12 +112,6 @@ def bookmarks():
     print(l1)
     return render_template('bookmarks.html', list=l1)
 
-# @app.route('/remove_bookmark',methods=['POST','GET'])
-# def remove_bookmark ():
-#     if request.method=='POST':
-        
-
-
 @app.route('/profile',methods=['POST','GET'])
 def profile():
     if request.method == 'GET':
@@ -128,8 +122,6 @@ def profile():
         password=user_details[5]
         user_name=user_details[4]
         about=user_details[10]
-        # profile_pic = user_details[x]  ## sahi karna h
-        # return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password,about=about,profile_pic =profile_pic,review=functions.get_reviews_by_user(session['id']))
         return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password,about=about,review=functions.get_reviews_by_user(session['id']))
     if request.method=='POST':
         for i in request.form.keys():print(i)
@@ -144,19 +136,7 @@ def profile():
         user_name=user_details[4]
         about=request.form['About']
         functions.update_about(str(session['id']),about)
-        # profile_pic=request.files['Profile_pic']
-        
-        # # #get file_name
-        # pic_filename = secure_filename(profile_pic.filename)
-        # if functions.allowed_file(pic_filename):
-        # #     #unique name
-        #     pic_name = str(uuid.uuid1()) + "_" + pic_filename
-        #     # pic_name = str(session['id']) + ".jpg"
-        # #     #save image
-        #     profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'],pic_name))
-        #     profile_pic = pic_name
         password = hashlib.sha256(password.encode())
-        # return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password.hexdigest(),about=about,profile_pic =profile_pic,review=functions.get_reviews_by_user(session['id']))
         return render_template('profile.html',first_name=first_name,user_name=user_name,sur_name=last_name,email=email,password=password.hexdigest(),about=about,review=functions.get_reviews_by_user(session['id']))
     
 @app.route('/add_review',methods=['POST','GET'])
@@ -189,7 +169,7 @@ def search_results():
             message = "Sorry, we couldn't find the movie you requested; here are the recommendations from our ML model!"
         elif bool==2:
             message = f"Sorry, we couldn't find the movie you requested; did you mean {text}?"
-        elif result==[]:
+        elif list==[]:
             message = "Sorry, we couldn't find the movie you requested; try another one!" 
         return render_template('search_results.html',list=list, message=message)
 
@@ -197,10 +177,22 @@ def search_results():
 @app.route('/search_filters',methods=['POST','GET'])
 def search_filters():
     if request.method == 'POST':
-        genre=request.form['genre']
-        language=request.form['language']
-        released_after=request.form['released_after']
-        rated_more_than=request.form['rating']
+        try:
+            genre=request.form['genre']
+        except:
+            genre=""
+        try:    
+            language=request.form['language']
+        except:
+            language="en"
+        try:
+            released_after=request.form['released_after']
+        except:
+            released_after="0"
+        try:
+            rated_more_than=request.form['rating']
+        except:
+            rated_more_than="0"
 
         return render_template('search_results.html',list=functions.movies_with_filters(12,genre,released_after,rated_more_than,language))
     
@@ -236,7 +228,12 @@ def community():
 
 @app.route('/trending')
 def trending():
-    return render_template("trending.html",list=functions.movies_by_popularity(20) )
+    try:
+        print("MLfunc")
+        return render_template("trending.html",list=functions.return_20_movies(session['id']) )
+    except:
+        print("Normal")
+        return render_template("trending.html",list=functions.movies_by_popularity(20) )
 
 @app.route('/likeunlike',methods=['POST','GET'])
 def likeunlike():

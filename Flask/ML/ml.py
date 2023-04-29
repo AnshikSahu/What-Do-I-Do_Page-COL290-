@@ -68,14 +68,15 @@ class ML:
         for i in self.vec:
             s = cosine_similarity(i.reshape(1, -1), s_vec)[0][0]
             similarity.append(s)
+        print("E!")
         s = list(enumerate(similarity))
         s = list(sorted(s, reverse=True, key=lambda x: x[1]))
+        print("E2")
         l = []
         counter = 0
         for i in s:
-            if (i[1] > 0):
-                l.append(i[0]+1)
-                counter += 1
+            l.append(i[0]+1)
+            counter += 1
             if (counter == 20):
                 break
         return l
@@ -84,38 +85,10 @@ class ML:
         # if type=="Friend":
         #     vec_o=np.divide(vec_o,2,dtype=int)
         #     return np.add(vec_c,vec_o)
-        vec_o = self.vec[id]
+        vec_o = self.vec[id-1]
         if type == "Bookmark":
             return np.add(vec_c, vec_o)
         if type == "Movie":
             vec_o = np.multiply(vec_o, 2)
             return np.add(vec_o, vec_c)
 
-    def sentiment(self, s):
-        print("API")
-        url = "https://api.apilayer.com/sentiment/analysis"
-        s = s.replace(" ", "%20")
-        payload = s.encode("utf-8")
-        headers = {
-            "apikey": "iOMAkbUfYHMxxXE00rY5k3phtiQV0tIU"}
-        proxies = {
-            "http": "http://proxy22.iitd.ac.in:3128",
-            "https": "http://proxy22.iitd.ac.in:3128"
-        }
-        response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
-        result = json.loads(response.text)
-        if (result['sentiment'] == "negative"):
-            print("-1")
-            return -1
-        if (result['sentiment'] == "positive"):
-            print("1")
-            return 1
-        print("0")
-        return 0
-
-    def related_to_movie(self, id):
-        s = self.similarity[id]
-        l = []
-        for i in s:
-            l.append(i+1)
-        return l

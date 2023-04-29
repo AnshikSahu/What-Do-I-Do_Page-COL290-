@@ -2,6 +2,7 @@ import mysql.connector
 from datetime import date
 import requests,json
 from ML.ml import ML
+from datetime import datetime
 ml=ML()
 mydb= mysql.connector.connect(
         host= "localhost",
@@ -36,12 +37,12 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def movie_details_full(Movie_ID):
+def movie_details_full(Movie_ID,):
 #     with engine.connect() as conn:
-         print(Movie_ID)
-         conn.execute("SELECT * FROM Mov1 WHERE Movie_ID ="+str(Movie_ID))
-         row=conn.fetchall()
-         return list(row[0])
+        print(Movie_ID)
+        conn.execute("SELECT * FROM Mov1 WHERE Movie_ID ="+str(Movie_ID))
+        row=conn.fetchall()
+        return list(row[0])
     
 
 def movies_with_filters(number_of_movies, genre,released_after,rated_more_than,language):
@@ -189,21 +190,6 @@ def get_bookmarks(userid):
         l=temp.split("|")
         return l
 
-def remove_bookmarks(userid,movie_id):
-        conn.execute("select Bookmarks from Users1 where User_ID= "+userid)
-        temp=conn.fetchall()[0][0]
-        l=temp.split("|")
-        l=l.remove(movie_id)
-        if len(l)==0:
-                conn.execute("update Users1 set Bookmarks= \"\"")
-                conn.execute("commit")
-                return
-        str=l[0]
-        l=l.pop(0)
-        for i in l :
-                str=str+"|"+i
-        conn.execute("update Users1 set Bookmarks= \""+str+"\"")
-        conn.execute("commit")
 
 def add_like_review(postid,userid, movieid):
         conn.execute("select Liked_Users from Reviews where Review_ID="+postid)
@@ -250,22 +236,29 @@ def add_unlike_review(postid,userid, movieid):
                 return (int(likes),int(num)+1)
 
 
-# def add_vector (user_id,lis):
-#         str=""
-#         for i in lis:
-#                 lis=lis.append("|"+str(i))
-#         conn.execute ("update Users1 set Vector= \""+str+"\" where User_ID =\""+user_id+"\"")
-#         conn.execute("commit")
-# def fetch_vector (user_id):
-#         conn.execute ("select Vector from Users1 where User_ID ="+user_id)
-#         str=conn.fetchall()[0][0] 
-#         if str=="":
-#                 return [0 for i in range (2500)]
-#         lis=str.split("|")
-#         lis1=[]
-#         for i in lis:
-#                lis1.append(int(i))
-#         return lis1
+def add_vector (user_id,lis):
+        stri=""
+        for i in lis:
+                stri=stri+("|"+str(i))
+        conn.execute ("update Users1 set Vector= \""+stri+"\" where User_ID =\""+str(user_id)+"\"")
+        conn.execute("commit")
+def fetch_vector (user_id):
+        print(user_id)
+        conn.execute ("select Vector from Users1 where User_ID ="+user_id)
+        str=conn.fetchall()[0][0] 
+        if str=="":
+                return [0]*2000
+        lis=str.split("|")
+        lis.pop(0)
+        lis1=[]
+        for i in lis:
+               lis1.append(int(i))
+        return lis1
+
+def update_user(Movie_ID,User_ID,type):
+        vec=fetch_vector(User_ID)
+        new=ml.update_personilization(vec,int(Movie_ID),type)
+        add_vector(User_ID,new)
 
 def Top_movies_by_genres (genre):
         lis=genre.split("|")
@@ -279,6 +272,30 @@ def Top_movies_by_genres (genre):
         conn.execute("select Movie_ID,Posters from Mov1 where Genres like \"%"+lis[0]+"%\" and Genres like \"%"+lis[1]+"%\" order by Popularity desc limit "+str(5))
         rows=conn.fetchall()
         return rows
+
+def return_20_movies (user_id):
+        stri=fetch_vector(str(user_id))
+        result=ml.recommend_by_vector(stri)
+        rows2=[]
+        if result!=[]:
+                for i in range(20):
+                        row3=conn.execute("select Movie_ID,Posters from Mov1 where Movie_ID="+str(result[i]))
+                        row3=conn.fetchall()
+                        rows2.append(row3[0])
+        return rows2
+        
+# def wallpaper(offset):
+#         now = datetime.now()
+#         s=now.strftime("%S")
+#         m=now.strftime("%M")
+#         h=now.strftime("%H")
+#         id=(3600*(int(h))+60*(int(m))+int(s)+offset)%7083+1
+#         row3=conn.execute("select Homepage from Mov1 where Movie_ID="+str(id))
+#         row3=str(conn.fetchall()[0][0])
+#         if(len(row3)<5):
+#                 return wallpaper(offset+1)
+#         return row3
+
 # def find_user(user_name):
 #      with engine.connect() as conn:
 #          row=conn.execute(text("SELECT User_ID FROM Users1 WHERE User_Name = \""+user_name+"\""))
@@ -503,7 +520,7 @@ def Top_movies_by_genres (genre):
 # conn.execute(("DROP TABLE Reviews"))
  #conn.execute("commit")
 # conn=mydb.cursor ()
-# conn.execute(("CREATE TABLE Users1 (User_ID int AUTO_INCREMENT,Reviews varchar(5000) default \"\",Email varchar(200),Mobile varchar(100),User_Name varchar(100),Password varchar(100),Name varchar(200),Interactions varchar(1000) default \"\",Bookmarks varchar(1000) default \"\",Friends varchar(3000) default \"\",About varchar(2000),PRIMARY KEY(User_ID))"))
+# conn.execute(("CREATE TABLE Users1 (User_ID int AUTO_INCREMENT,Reviews varchar(5000) default \"\",Email varchar(200),Mobile varchar(100),User_Name varchar(100),Password varchar(100),Name varchar(200),Interactions varchar(1000) default \"\",Bookmarks varchar(1000) default \"\",About varchar(2000),PRIMARY KEY(User_ID))"))
 # conn.execute("commit")
 #conn.execute(("CREATE TABLE Reviews (Review_ID int AUTO_INCREMENT,Movie_ID varchar(100),User_ID varchar(100),Review varchar(10000),Likes varchar(100) default \"0\",Dislikes varchar(100) default \"0\",Date varchar(100) default=\"25/04/2023\",PRIMARY KEY(Review_ID))"))
 # conn.execute("alter table Reviews add Title mediumtext")
@@ -531,3 +548,4 @@ def Top_movies_by_genres (genre):
 # add_bookmark("1","1")
 # movie_details_full("1234")
 
+fetch_vector("1")

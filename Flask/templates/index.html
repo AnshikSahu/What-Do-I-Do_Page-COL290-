@@ -57,10 +57,27 @@ Home
           </button>
       </div>
     </div>
-
+    {% if session['loggedin'] %}
+    <button class="trending1">Recommended for You</button>
+    {% else %}
     <button class="trending1">Trending</button>
+    {% endif %}
     <div class="trending-child"></div>
     <div class="trending">
+      {% for i in range(link|length) %}
+      <a href="{{url_for('movie', movie_id=link[i][0])}}" class="trending-item trending-item{{i+1}}"
+        style="background-image:url({{link[i][1]}})"></a>
+      {% endfor %}
+      <a href="{{url_for('trending')}}">
+        <button class="arrow">
+
+          <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
+        </button>
+      </a>
+    </div>
+    <!-- <button class="recommended">Recommended</button>
+    <div class="recommended-child"></div>
+    <div class="recommending">
 
 
       <a href="{{url_for('movie', movie_id=link[0][0])}}" class="trending-item trending-item1"
@@ -74,12 +91,12 @@ Home
       <a href="{{url_for('movie', movie_id=link[4][0])}}" class="trending-item trending-item5"
         style="background-image:url({{link[4][1]}})"></a>
       <a href="{{url_for('trending')}}">
-        <button class="arrow">
+        <button class="arrow2">
 
           <img class="icon-color" alt="" src="{{url_for('static',filename='css/public/iconcolor.svg')}}" />
         </button>
       </a>
-    </div>
+    </div> -->
   </div>
 </div>
 {% endblock %}

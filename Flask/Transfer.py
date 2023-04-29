@@ -53,23 +53,30 @@ mydb= mysql.connector.connect(
 # conn=mydb.cursor ()
 # conn.execute("alter table Reviews add Disliked_Users mediumtext")
 
-with open("./updated.csv", 'r') as file:
-    print("sql is so bad")
-    csvreader = csv.DictReader(file)
-    i=0
-    conn=mydb.cursor ()
-# conn.execute("alter table Users add Profile_PIC mediumtext")
-    conn.execute("CREATE TABLE Mov1(Movie_ID int AUTO_INCREMENT,Title mediumtext ,Genres mediumtext ,Release_Year varchar(100) default \"2000\",Tag_Line mediumtext ,Overview mediumtext ,Revenue mediumtext ,Language varchar(100) default \"en\",Director mediumtext ,Actors mediumtext ,Runtime varchar(100) default \"0\",Age_certificate varchar(100) default \"U\",Homepage mediumtext ,Posters mediumtext ,Popularity varchar(100) default \"0\",Vote_Count varchar(100) default \"0\",Rating varchar(100) default \"7\",TMDB_ID varchar(100),IMDB_ID varchar(100),PRIMARY KEY(Movie_ID) )")
-    for row in csvreader:
-        i+=1
-        print(i) 
-#       conn.execute( " INSERT INTO Mov(Title,Genres,Release_Year,Tag_Line,Overview,Revenue,Language,Director,Actors,Runtime,Age_certificate,Homepage,Posters,Popularity,Vote_Count,Rating,TMDB_ID,IMDB_ID) VALUES (\""+row[ "Title" ].replace("\""," ")+ "\" ,\""  +row[ "Genres" ].replace("\""," ")+ "\" ,\""  +row[ "Release Year" ].replace("\""," ")+ "\" ,\""  +row[ "Tag Line" ].replace("\""," ")+ "\" ,\""  +row[ "Overview" ].replace("\""," ")+ "\" ,\""  +row[ "Revenue"].replace("\""," ")+ "\" ,\""  +row[ "Language" ].replace("\""," ")+ "\" ,\""  +row[ "Director"].replace("\""," ")+ "\" ,\""  +row[ "Actors" ].replace("\""," ")+ "\" ,\""  +row[ "Runtime" ].replace("\""," ")+ "\" ,\""  +row[ "Age Certificate"].replace("\""," ")+ "\" ,\""  +row[ "Homepage" ].replace("\""," ")+ "\" ,\""  +row[ "Poster" ].replace("\""," ")+ "\" ,\""  +row[ "Popularity" ].replace("\""," ")+ "\" ,\""  +row[ "Vote Count"].replace("\""," ")+ "\" ,\""  +row[ "Rating" ].replace("\""," ")+ "\" ,\""  +row[ "TMDB ID"].replace("\""," ")+ "\" ,\""  +row[ "IMDB ID"].replace("\""," ")+ "\" " ) 
-        conn.execute((" INSERT INTO Mov1(Title,Genres,Release_Year,Tag_Line,Overview,Revenue,Language,Director,Actors,Runtime,Homepage,Posters,Popularity,Vote_Count,Rating,TMDB_ID,IMDB_ID) VALUES (\""+row[ "title" ].replace("\""," ")+ "\" ,\""  +row[ "genres" ].replace("\""," ")+ "\" ,\""  +((row[ "release_date" ]).split("-")[0]).replace("\""," ")+ "\" ,\""  +row[ "tagline" ].replace("\""," ")+ "\" ,\""  +row[ "overview" ].replace("\""," ")+ "\" ,\""  +row[ "revenue"].replace("\""," ")+ "\" ,\""  +row[ "original_language" ].replace("\""," ")+ "\" ,\""  +row[ "directors"].replace("\""," ")+ "\" ,\""  +row[ "cast" ].replace("\""," ")+ "\" ,\""  +row[ "runtime" ].replace("\""," ")+ "\" ,\""  +row[ "homepage" ].replace("\""," ")+ "\" ,\"https://image.tmdb.org/t/p/original"  +row[ "poster_path" ].replace("\""," ")+ "\" ,\""  +row[ "popularity" ].replace("\""," ")+ "\" ,\""  +row[ "vote_count"].replace("\""," ")+ "\" ,\""  +row[ "vote_average" ].replace("\""," ")+ "\" ,\""  +row[ "id"].replace("\""," ")+ "\" ,\""  +row[ "imdb_id"].replace("\""," ")+ "\"  ) "))
-        conn.execute("commit")
-    print(i)   
+# with open("./updated.csv", 'r') as file:
+#     print("sql is so bad")
+#     csvreader = csv.DictReader(file)
+#     i=0
+#     conn=mydb.cursor ()
+# # conn.execute("alter table Users add Profile_PIC mediumtext")
+#     conn.execute("CREATE TABLE Mov1(Movie_ID int AUTO_INCREMENT,Title mediumtext ,Genres mediumtext ,Release_Year varchar(100) default \"2000\",Tag_Line mediumtext ,Overview mediumtext ,Revenue mediumtext ,Language varchar(100) default \"en\",Director mediumtext ,Actors mediumtext ,Runtime varchar(100) default \"0\",Age_certificate varchar(100) default \"U\",Homepage mediumtext ,Posters mediumtext ,Popularity varchar(100) default \"0\",Vote_Count varchar(100) default \"0\",Rating varchar(100) default \"7\",TMDB_ID varchar(100),IMDB_ID varchar(100),PRIMARY KEY(Movie_ID) )")
+#     for row in csvreader:
+#         i+=1
+#         print(i) 
+# #       conn.execute( " INSERT INTO Mov(Title,Genres,Release_Year,Tag_Line,Overview,Revenue,Language,Director,Actors,Runtime,Age_certificate,Homepage,Posters,Popularity,Vote_Count,Rating,TMDB_ID,IMDB_ID) VALUES (\""+row[ "Title" ].replace("\""," ")+ "\" ,\""  +row[ "Genres" ].replace("\""," ")+ "\" ,\""  +row[ "Release Year" ].replace("\""," ")+ "\" ,\""  +row[ "Tag Line" ].replace("\""," ")+ "\" ,\""  +row[ "Overview" ].replace("\""," ")+ "\" ,\""  +row[ "Revenue"].replace("\""," ")+ "\" ,\""  +row[ "Language" ].replace("\""," ")+ "\" ,\""  +row[ "Director"].replace("\""," ")+ "\" ,\""  +row[ "Actors" ].replace("\""," ")+ "\" ,\""  +row[ "Runtime" ].replace("\""," ")+ "\" ,\""  +row[ "Age Certificate"].replace("\""," ")+ "\" ,\""  +row[ "Homepage" ].replace("\""," ")+ "\" ,\""  +row[ "Poster" ].replace("\""," ")+ "\" ,\""  +row[ "Popularity" ].replace("\""," ")+ "\" ,\""  +row[ "Vote Count"].replace("\""," ")+ "\" ,\""  +row[ "Rating" ].replace("\""," ")+ "\" ,\""  +row[ "TMDB ID"].replace("\""," ")+ "\" ,\""  +row[ "IMDB ID"].replace("\""," ")+ "\" " ) 
+#         conn.execute((" INSERT INTO Mov1(Title,Genres,Release_Year,Tag_Line,Overview,Revenue,Language,Director,Actors,Runtime,Homepage,Posters,Popularity,Vote_Count,Rating,TMDB_ID,IMDB_ID) VALUES (\""+row[ "title" ].replace("\""," ")+ "\" ,\""  +row[ "genres" ].replace("\""," ")+ "\" ,\""  +((row[ "release_date" ]).split("-")[0]).replace("\""," ")+ "\" ,\""  +row[ "tagline" ].replace("\""," ")+ "\" ,\""  +row[ "overview" ].replace("\""," ")+ "\" ,\""  +row[ "revenue"].replace("\""," ")+ "\" ,\""  +row[ "original_language" ].replace("\""," ")+ "\" ,\""  +row[ "directors"].replace("\""," ")+ "\" ,\""  +row[ "cast" ].replace("\""," ")+ "\" ,\""  +row[ "runtime" ].replace("\""," ")+ "\" ,\""  +row[ "homepage" ].replace("\""," ")+ "\" ,\"https://image.tmdb.org/t/p/original"  +row[ "poster_path" ].replace("\""," ")+ "\" ,\""  +row[ "popularity" ].replace("\""," ")+ "\" ,\""  +row[ "vote_count"].replace("\""," ")+ "\" ,\""  +row[ "vote_average" ].replace("\""," ")+ "\" ,\""  +row[ "id"].replace("\""," ")+ "\" ,\""  +row[ "imdb_id"].replace("\""," ")+ "\"  ) "))
+#         conn.execute("commit")
+#     print(i)   
 
 # conn=mydb.cursor()
 # conn.execute("alter table Reviews add Sentiment int default 0")
 
+# lis=""
+# for i in range (2000):
+#     lis=lis+"|0"
 # conn=mydb.cursor()
-# conn.execute ("alter table Users drop Vector")
+# # conn.execute ("alter table Users1 add Vector varchar() default \""+lis+"\"")
+
+# conn.execute("drop table Users1")
+# conn.execute(("CREATE TABLE Users1 (User_ID int AUTO_INCREMENT,Reviews varchar(1000) default \"\",Email varchar(200),Mobile varchar(100),User_Name varchar(100),Password varchar(100),Name varchar(200),Interactions varchar(1000) default \"\",Bookmarks varchar(1000) default \"\",Vector varchar(5000) default \""+lis+"\",About varchar(2000),PRIMARY KEY(User_ID))"))
+# conn.execute("commit")

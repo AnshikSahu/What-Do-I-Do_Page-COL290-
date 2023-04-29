@@ -136,6 +136,21 @@
   text-align: left;
   display: inline-block;
 }
+.recommended{
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 1000px;
+  left: calc(11.5% + 15px);
+  font-size: 30px;
+  font-weight: 700;
+  font-family: var(--font-sansation);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+}
 .trending-child {
   position: absolute;
   top: 630px;
@@ -144,6 +159,15 @@
   background-color: var(--color-brown-100);
   width: 4px;
   height: 39px;
+}
+.recommended-child {
+  position: absolute;
+  top: 805px;
+  left: 11.5%;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-brown-100);
+  width: 4px;
+  height: 39px; 
 }
 .trending-item {
   cursor: pointer;
@@ -159,6 +183,17 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+}
+.recommending{
+  position: relative;
+  top: calc(50% + 350px);
+  left: 12%;
+  width:85%;
+  height: 325px;
+  overflow-y:hidden;
+  /* ADDED SCROLLBAR */
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
 }
 .trending-item1{
   left: 10px ;

@@ -1,6 +1,6 @@
 
 {% block stylesheets %}
-<link rel="stylesheet" href="loading.css">
+<link rel="stylesheet" href="{{url_for('static',filename='css/loading.css')}}">
 {% endblock %}
 {% block content %}
 <img class="logo" src="{{ url_for('static', filename='css/public/image2@3x.png') }}">
@@ -20,7 +20,7 @@
 <button class="login btn" type="submit" >Login</button>
 <button class="login btn1" type="submit" >Sign Up</button>
 <button class="login btn2" type="submit" >About Us</button>
-<button class="login movie" type="submit" >MOVIE</button>
+<button class="login movie" type="submit" href = >MOVIE</button>
 <button class="login coming" type="submit" >COMING SOON...</button>
 <button class="login coming2" type="submit" >BOOKS</button>
 <button class="login coming3" type="submit" >GAMES</button>
