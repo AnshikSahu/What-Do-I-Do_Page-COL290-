@@ -1,7 +1,7 @@
 from flask import Flask, request, session, redirect, url_for, render_template, flash, jsonify
 from flaskext.mysql import MySQL
 import pymysql 
-import functions
+import Flask.functions
 import hashlib
 from werkzeug.utils import secure_filename
 import uuid as uuid
