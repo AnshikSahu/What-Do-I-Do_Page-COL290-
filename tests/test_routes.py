@@ -1,6 +1,6 @@
 import unittest
 import random
-from app import app
+from Flask.app import app
 # print(app.secret_key)
 class TestApp(unittest.TestCase):
     def setUp(self):
