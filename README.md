@@ -1,2 +1,2 @@
-# COP290-Assignment3
-Install a venv before running flask
+# The WHAT DO I DO Page
+Documentation at <https://docs.google.com/document/d/1WqnYhF4DxgPJ8m8vauFVUTJYqDj8_KjrdAaOIqs1Iv0/edit?usp=sharing>
